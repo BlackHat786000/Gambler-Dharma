@@ -1835,11 +1835,11 @@ public class Gambler_Dharma_v5 {
 			if (Math.abs(L1_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L1_houseno) == 6) {
 					System.out
-							.println("L1 " + planets_id.inverse().get(L1) + " is applying to oppose POF within orb of "
+							.println("L1 " + planets_id.inverse().get(L1) + retro.get(Iterables.get(planets.get(L1), 0)) + " is applying to oppose POF within orb of "
 									+ (L1_poforb / 60) + "°" + Math.abs(L1_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L1_houseno) == 0) {
 					System.out
-							.println("L1 " + planets_id.inverse().get(L1) + " is applying to conjuct POF within orb of "
+							.println("L1 " + planets_id.inverse().get(L1) + retro.get(Iterables.get(planets.get(L1), 0)) + " is applying to conjuct POF within orb of "
 									+ (L1_poforb / 60) + "°" + Math.abs(L1_poforb % 60) + "'");
 				}
 			}
@@ -1849,11 +1849,11 @@ public class Gambler_Dharma_v5 {
 			if (Math.abs(L7_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L7_houseno) == 6) {
 					System.out
-							.println("L7 " + planets_id.inverse().get(L7) + " is applying to oppose POF within orb of "
+							.println("L7 " + planets_id.inverse().get(L7) + retro.get(Iterables.get(planets.get(L7), 0)) + " is applying to oppose POF within orb of "
 									+ (L7_poforb / 60) + "°" + Math.abs(L7_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L7_houseno) == 0) {
 					System.out
-							.println("L7 " + planets_id.inverse().get(L7) + " is applying to conjuct POF within orb of "
+							.println("L7 " + planets_id.inverse().get(L7) + retro.get(Iterables.get(planets.get(L7), 0)) + " is applying to conjuct POF within orb of "
 									+ (L7_poforb / 60) + "°" + Math.abs(L7_poforb % 60) + "'");
 				}
 			}
@@ -1863,11 +1863,11 @@ public class Gambler_Dharma_v5 {
 			if (Math.abs(L10_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L10_houseno) == 6) {
 					System.out.println(
-							"L10 " + planets_id.inverse().get(L10) + " is applying to oppose POF within orb of "
+							"L10 " + planets_id.inverse().get(L10) + retro.get(Iterables.get(planets.get(L10), 0)) + " is applying to oppose POF within orb of "
 									+ (L10_poforb / 60) + "°" + Math.abs(L10_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L10_houseno) == 0) {
 					System.out.println(
-							"L10 " + planets_id.inverse().get(L10) + " is applying to conjuct POF within orb of "
+							"L10 " + planets_id.inverse().get(L10) + retro.get(Iterables.get(planets.get(L10), 0)) + " is applying to conjuct POF within orb of "
 									+ (L10_poforb / 60) + "°" + Math.abs(L10_poforb % 60) + "'");
 				}
 			}
@@ -1877,11 +1877,11 @@ public class Gambler_Dharma_v5 {
 			if (Math.abs(L4_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L4_houseno) == 6) {
 					System.out
-							.println("L4 " + planets_id.inverse().get(L4) + " is applying to oppose POF within orb of "
+							.println("L4 " + planets_id.inverse().get(L4) + retro.get(Iterables.get(planets.get(L4), 0)) + " is applying to oppose POF within orb of "
 									+ (L4_poforb / 60) + "°" + Math.abs(L4_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L4_houseno) == 0) {
 					System.out
-							.println("L4 " + planets_id.inverse().get(L4) + " is applying to conjuct POF within orb of "
+							.println("L4 " + planets_id.inverse().get(L4) + retro.get(Iterables.get(planets.get(L4), 0)) + " is applying to conjuct POF within orb of "
 									+ (L4_poforb / 60) + "°" + Math.abs(L4_poforb % 60) + "'");
 				}
 			}

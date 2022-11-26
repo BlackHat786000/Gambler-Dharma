@@ -1,4 +1,4 @@
-package com.n00bc0der.code.Gambler_Dharma_v4.O;
+package com.AstroSports.GamblerDharma;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -45,7 +45,7 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Multimap;
 
-public class Gambler_Dharma_v4_2{
+public class GamblerDharma {
 
 	public static void main(String[] args) throws Exception {
 		
@@ -98,7 +98,7 @@ public class Gambler_Dharma_v4_2{
 		String timezone = null;
 
 		System.out.println(
-				"================== Sport's Prediction Using Vedic & Western Astrology - Gambler's Dharma + Frawley's Testimonies Report ==================\n\n");
+				"\n********* Sport's Prediction Using Vedic & Western Astrology - Gambler's Dharma + Frawley's Testimonies Report *********\n\n");
 
 //--------------------------------------------------------------------------------------------------------------------
 //												STADIUM DATABASE
@@ -180,16 +180,16 @@ public class Gambler_Dharma_v4_2{
 		// System.setOut(console);
 
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
-		System.out.println("Sports Contest Details :-");
+		System.out.println("Sports Contest Details :-\n");
 		System.out.println("Name : " + name);
 		System.out.println("Date : " + date + "-" + month + "-" + year);
 		System.out.println("Time : " + hour + ":" + minute + ":" + second);
 		System.out.println("Timezone : " + timezone);
 		System.out.println("Stadium : " + sname);
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "\n\n");
 
 		JFrame frame = new JFrame();
@@ -206,6 +206,7 @@ public class Gambler_Dharma_v4_2{
 		frame.setLayout(null);
 		frame.setAlwaysOnTop(true);
 		frame.setVisible(true);
+		frame.setResizable(false);
 
 		HashBiMap<String, Integer> signs_id = HashBiMap.create();
 		signs_id.put("Ari", 1);
@@ -282,7 +283,7 @@ public class Gambler_Dharma_v4_2{
 
 		System.setOut(console);
 		System.out.println(
-				"\n\n========== Your Sport's Prediction Using Vedic & Western Astrology - Gambler's Dharma + Frawley's Testimonies Report is being generating. This may take several minutes ==========");
+				"\n\nYour Sport's Prediction Using Vedic & Western Astrology - Gambler's Dharma + Frawley's Testimonies Report is being generating. This may take several minutes");
 		System.setOut(o);
 
 		driver.navigate().to("https://www.rahasyavedicastrology.com/rva-software/");
@@ -548,10 +549,10 @@ public class Gambler_Dharma_v4_2{
 
 			int navamsa_minutes = (planet_minutes % 200) * 9;
 
-			navamsa.put(i, navamsa_minutes);
+			navamsa.put(i, navamsa_minutes); if (nplanet_sign_no == 0) { nplanet_sign_no = 12; }
 			navamsa.put(i, nplanet_sign_no);
 
-		} // System.out.println(navamsa);
+		}  // System.out.println(navamsa);
 
 		Multimap<String, Integer> D9_Lords = ArrayListMultimap.create();
 
@@ -563,21 +564,25 @@ public class Gambler_Dharma_v4_2{
 			if (sign >= 13) {
 				sign = sign % 12;
 			}
+			if (sign == 0) {
+				sign = 12;
+			}
 			navamsa_whole_sign.put(i, sign);
 			D9_Lords.put(lords.get(sign), i);
 			n_counter++;
 		}
-		// System.out.println(navamsa_whole_sign);
-		// System.out.println(D9_Lords);
+//		 System.out.println(navamsa_whole_sign);
+//		 System.out.println(D9_Lords);
 
 //----------------------------------------------------------------------------------------------------------------------
-		System.out.println("Lagna : " + signs_id.inverse().get(Iterables.get(cusps.get(1), 0))+"\n\n");
+		System.out.println("D1 Lagna : " + Iterables.get(planets.get(0), 2) / 60 + "°" + Iterables.get(planets.get(0), 2) % 60 + "' " + signs_id.inverse().get(Iterables.get(planets.get(0), 1)));
+		System.out.println("\nD9 Lagna : " + Iterables.get(navamsa.get(0), 0) / 60 + "°" + Iterables.get(navamsa.get(0), 0) % 60 + "' " + signs_id.inverse().get(navamsa_whole_sign.get(1))+"\n\n");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 1)					D1 Cuspal Strength : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		for (int i = 1; i <= 14; i++) {
 
@@ -659,11 +664,11 @@ public class Gambler_Dharma_v4_2{
 //---------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 2)					D9 Cuspal Strength & D9 Combo : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		int navamsa_asc_sign = navamsa_whole_sign.get(1);
@@ -713,7 +718,7 @@ public class Gambler_Dharma_v4_2{
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(navamsa_planet_sign) + ")"
-							+ " is in D9 Dscendant (7th) within orb of " + (orb / 60) + "°" + Math.abs(orb % 60) + "'");
+							+ " is in D9 Descendant (7th) within orb of " + (orb / 60) + "°" + Math.abs(orb % 60) + "'");
 					System.out.println(
 							"***************************************************************************************************************************\n");
 					d9_seventh = planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " + "
@@ -722,7 +727,7 @@ public class Gambler_Dharma_v4_2{
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(navamsa_planet_sign) + ")"
-							+ " is in D9 Dscendant (7th) but within orb of " + (orb / 60) + "°" + Math.abs(orb % 60)
+							+ " is in D9 Descendant (7th) but within orb of " + (orb / 60) + "°" + Math.abs(orb % 60)
 							+ "' (out of 2°30' orb)");
 					d9_seventh = planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " + "
 							+ d9_seventh;
@@ -774,11 +779,11 @@ public class Gambler_Dharma_v4_2{
 //-------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 3)					The Sublord Technique : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		String asc_csl = driver.findElement(By.xpath(
@@ -817,7 +822,7 @@ public class Gambler_Dharma_v4_2{
 							&& (Iterables.get(house_view.get(i), 2).equals(""))
 							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl)))) {
 				ASC_SUB = ASC_SUB + 4;
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0).equals(""))
 							&& (Iterables.get(house_view.get(i), 1).equals(""))
 							&& (Iterables.get(house_view.get(i), 2).equals(""))
@@ -831,7 +836,7 @@ public class Gambler_Dharma_v4_2{
 				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl)) {
 					ASC_SUB = ASC_SUB + 2;
 				}
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0).equals(""))
 							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
 				if (Iterables.get(house_view.get(i), 2).contains(asc_csl)) {
@@ -846,7 +851,7 @@ public class Gambler_Dharma_v4_2{
 
 					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(asc_csl))) {
 						ASC_SUB = ASC_SUB + cnt;
-					} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12) && (s.contains(asc_csl))) {
+					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12) && (s.contains(asc_csl))) {
 						ASC_SUB = ASC_SUB - cnt;
 					}
 					cnt = cnt - 1;
@@ -864,7 +869,7 @@ public class Gambler_Dharma_v4_2{
 							&& (Iterables.get(house_view.get(i), 2) == ""
 									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl))))) {
 				DSC_SUB = DSC_SUB - 4;
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
 							&& (Iterables.get(house_view.get(i), 2) == ""
 									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl))))) {
@@ -876,7 +881,7 @@ public class Gambler_Dharma_v4_2{
 				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl)) {
 					DSC_SUB = DSC_SUB - 2;
 				}
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
 				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl)) {
 					DSC_SUB = DSC_SUB + 4;
@@ -890,7 +895,7 @@ public class Gambler_Dharma_v4_2{
 
 					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(dsc_csl))) {
 						DSC_SUB = DSC_SUB - cnt;
-					} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12) && (s.contains(dsc_csl))) {
+					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12) && (s.contains(dsc_csl))) {
 						DSC_SUB = DSC_SUB + cnt;
 					}
 					cnt = cnt - 1;
@@ -960,7 +965,7 @@ public class Gambler_Dharma_v4_2{
 							&& (Iterables.get(house_view.get(i), 2).equals(""))
 							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl_stars)))) {
 				ASC_SUB_STAR = ASC_SUB_STAR + 4;
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0).equals(""))
 							&& (Iterables.get(house_view.get(i), 1).equals(""))
 							&& (Iterables.get(house_view.get(i), 2).equals(""))
@@ -974,7 +979,7 @@ public class Gambler_Dharma_v4_2{
 				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl_stars)) {
 					ASC_SUB_STAR = ASC_SUB_STAR + 2;
 				}
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0).equals(""))
 							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
 				if (Iterables.get(house_view.get(i), 2).contains(asc_csl_stars)) {
@@ -989,7 +994,7 @@ public class Gambler_Dharma_v4_2{
 
 					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(asc_csl_stars))) {
 						ASC_SUB_STAR = ASC_SUB_STAR + cnt;
-					} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 							&& (s.contains(asc_csl_stars))) {
 						ASC_SUB_STAR = ASC_SUB_STAR - cnt;
 					}
@@ -1006,7 +1011,7 @@ public class Gambler_Dharma_v4_2{
 							&& (Iterables.get(house_view.get(i), 2) == ""
 									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_stars))))) {
 				DSC_SUB_STAR = DSC_SUB_STAR - 4;
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
 							&& (Iterables.get(house_view.get(i), 2) == ""
 									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_stars))))) {
@@ -1018,7 +1023,7 @@ public class Gambler_Dharma_v4_2{
 				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl_stars)) {
 					DSC_SUB_STAR = DSC_SUB_STAR - 2;
 				}
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
 				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl_stars)) {
 					DSC_SUB_STAR = DSC_SUB_STAR + 4;
@@ -1032,7 +1037,7 @@ public class Gambler_Dharma_v4_2{
 
 					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(dsc_csl_stars))) {
 						DSC_SUB_STAR = DSC_SUB_STAR - cnt;
-					} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 							&& (s.contains(dsc_csl_stars))) {
 						DSC_SUB_STAR = DSC_SUB_STAR + cnt;
 					}
@@ -1071,7 +1076,7 @@ public class Gambler_Dharma_v4_2{
 							&& (Iterables.get(house_view.get(i), 2).equals(""))
 							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl_subs)))) {
 				ASC_SUB_SUB = ASC_SUB_SUB + 4;
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0).equals(""))
 							&& (Iterables.get(house_view.get(i), 1).equals(""))
 							&& (Iterables.get(house_view.get(i), 2).equals(""))
@@ -1085,7 +1090,7 @@ public class Gambler_Dharma_v4_2{
 				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl_subs)) {
 					ASC_SUB_SUB = ASC_SUB_SUB + 2;
 				}
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0).equals(""))
 							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
 				if (Iterables.get(house_view.get(i), 2).contains(asc_csl_subs)) {
@@ -1100,7 +1105,7 @@ public class Gambler_Dharma_v4_2{
 
 					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(asc_csl_subs))) {
 						ASC_SUB_SUB = ASC_SUB_SUB + cnt;
-					} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 							&& (s.contains(asc_csl_subs))) {
 						ASC_SUB_SUB = ASC_SUB_SUB - cnt;
 					}
@@ -1124,7 +1129,7 @@ public class Gambler_Dharma_v4_2{
 							&& (Iterables.get(house_view.get(i), 2) == ""
 									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_subs))))) {
 				DSC_SUB_SUB = DSC_SUB_SUB - 4;
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
 							&& (Iterables.get(house_view.get(i), 2) == ""
 									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_subs))))) {
@@ -1136,7 +1141,7 @@ public class Gambler_Dharma_v4_2{
 				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl_subs)) {
 					DSC_SUB_SUB = DSC_SUB_SUB - 2;
 				}
-			} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
 				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl_subs)) {
 					DSC_SUB_SUB = DSC_SUB_SUB + 4;
@@ -1150,7 +1155,7 @@ public class Gambler_Dharma_v4_2{
 
 					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(dsc_csl_subs))) {
 						DSC_SUB_SUB = DSC_SUB_SUB - cnt;
-					} else if ((i == 4 || i == 5 || i == 7 || i == 8 || i == 9 || i == 12)
+					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
 							&& (s.contains(dsc_csl_subs))) {
 						DSC_SUB_SUB = DSC_SUB_SUB + cnt;
 					}
@@ -1204,11 +1209,11 @@ public class Gambler_Dharma_v4_2{
 //-------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 4)					Victory House Technique : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		float ASC_VHQ = 0;
@@ -1389,7 +1394,7 @@ public class Gambler_Dharma_v4_2{
 		}
 
 		System.out.println("Ascendant (ASC) : " + ASC_VHQ);
-		System.out.println("Dscendant (DSC) : " + DSC_VHQ + "\n");
+		System.out.println("Descendant (DSC) : " + DSC_VHQ + "\n");
 
 		if (ASC_VHQ == DSC_VHQ) {
 			System.out.println("Malefics are balanced");
@@ -1405,11 +1410,11 @@ public class Gambler_Dharma_v4_2{
 //-------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 5)					SKY / PKY : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		Venus = Iterables.get(planets.get(6), 3);
@@ -1423,7 +1428,7 @@ public class Gambler_Dharma_v4_2{
 		}
 
 		if ((Venus == 6 || Jupiter == 6 || Mercury == 6) && (Venus == 8 || Jupiter == 8 || Mercury == 8)) {
-			System.out.println("Shubha Kartari Yoga forming on Dscendant (7th House)");
+			System.out.println("Shubha Kartari Yoga forming on Descendant (7th House)");
 		}
 
 		if ((Saturn == 2 || Mars == 2 || Sun == 2) && (Saturn == 12 || Mars == 12 || Sun == 12)) {
@@ -1435,11 +1440,11 @@ public class Gambler_Dharma_v4_2{
 		}
 
 		if ((Saturn == 6 || Mars == 6 || Sun == 6) && (Saturn == 8 || Mars == 8 || Sun == 8)) {
-			System.out.println("Paap Kartari Yoga forming on Dscendant (7th House)");
+			System.out.println("Paap Kartari Yoga forming on Descendant (7th House)");
 		} else if ((Saturn == 6 || Mars == 6 || Sun == 6) && (Ketu == 8 || Rahu == 8)) {
-			System.out.println("Half PKY forming on Dscendant (7th House)");
+			System.out.println("Half PKY forming on Descendant (7th House)");
 		} else if ((Saturn == 8 || Mars == 8 || Sun == 8) && (Ketu == 6 || Rahu == 6)) {
-			System.out.println("Half PKY forming on Dscendant (7th House)");
+			System.out.println("Half PKY forming on Descendant (7th House)");
 		}
 
 		if ((Venus == 9 || Jupiter == 9 || Mercury == 9) && (Venus == 11 || Jupiter == 11 || Mercury == 11)) {
@@ -1464,11 +1469,11 @@ public class Gambler_Dharma_v4_2{
 //-------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 6)					Nakshatra Tara (Fixed Star) : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		for (int i = 1; i <= 12; i++) {
@@ -1695,11 +1700,11 @@ public class Gambler_Dharma_v4_2{
 //-------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 7)					Part of Fortune & Moon Aspects : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		System.out.println("Part of Fortune (POF) : " + pof_minutes / 60 + "°" + pof_minutes % 60 + "' "
@@ -1736,148 +1741,148 @@ public class Gambler_Dharma_v4_2{
 		int L4_orb = L4_minutes - MOON_minutes;
 		int L4_poforb = POF_minutes - L4_minutes;
 
-		if (MOON_minutes < L1_minutes && L1 != 2) {
-			if (L1_orb <= 180) {
+		if (MOON_minutes < L1_minutes || MOON_minutes > L1_minutes && L1 != 2) {
+			if (Math.abs(L1_orb) <= 180) {
 				if (Math.abs(L1_houseno - MOON_houseno) == 2) {
 					System.out.println("Moon is applying to sextile L1 " + planets_id.inverse().get(L1)
-							+ " within orb of " + (L1_orb / 60) + "°" + (L1_orb % 60) + "'");
+							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
 				} else if (Math.abs(L1_houseno - MOON_houseno) == 3) {
 					System.out.println("Moon is applying to square L1 " + planets_id.inverse().get(L1)
-							+ " within orb of " + (L1_orb / 60) + "°" + (L1_orb % 60) + "'");
+							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
 				} else if (Math.abs(L1_houseno - MOON_houseno) == 6) {
 					System.out.println("Moon is applying to oppose L1 " + planets_id.inverse().get(L1)
-							+ " within orb of " + (L1_orb / 60) + "°" + (L1_orb % 60) + "'");
+							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
 				} else if (Math.abs(L1_houseno - MOON_houseno) == 0) {
 					System.out.println("Moon is applying to conjuct L1 " + planets_id.inverse().get(L1)
-							+ " within orb of " + (L1_orb / 60) + "°" + (L1_orb % 60) + "'");
+							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < L7_minutes && L7 != 2) {
-			if (L7_orb <= 180) {
+		if (MOON_minutes < L7_minutes || MOON_minutes > L7_minutes && L7 != 2) {
+			if (Math.abs(L7_orb) <= 180) {
 				if (Math.abs(L7_houseno - MOON_houseno) == 2) {
 					System.out.println("Moon is applying to sextile L7 " + planets_id.inverse().get(L7)
-							+ " within orb of " + (L7_orb / 60) + "°" + (L7_orb % 60) + "'");
+							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
 				} else if (Math.abs(L7_houseno - MOON_houseno) == 3) {
 					System.out.println("Moon is applying to square L7 " + planets_id.inverse().get(L7)
-							+ " within orb of " + (L7_orb / 60) + "°" + (L7_orb % 60) + "'");
+							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
 				} else if (Math.abs(L7_houseno - MOON_houseno) == 6) {
 					System.out.println("Moon is applying to oppose L7 " + planets_id.inverse().get(L7)
-							+ " within orb of " + (L7_orb / 60) + "°" + (L7_orb % 60) + "'");
+							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
 				} else if (Math.abs(L7_houseno - MOON_houseno) == 0) {
 					System.out.println("Moon is applying to conjuct L7 " + planets_id.inverse().get(L7)
-							+ " within orb of " + (L7_orb / 60) + "°" + (L7_orb % 60) + "'");
+							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < L10_minutes && L10 != 2) {
-			if (L10_orb <= 180) {
+		if (MOON_minutes < L10_minutes || MOON_minutes > L10_minutes && L10 != 2) {
+			if (Math.abs(L10_orb) <= 180) {
 				if (Math.abs(L10_houseno - MOON_houseno) == 2) {
 					System.out.println("Moon is applying to sextile L10 " + planets_id.inverse().get(L10)
-							+ " within orb of " + (L10_orb / 60) + "°" + (L10_orb % 60) + "'");
+							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
 				} else if (Math.abs(L10_houseno - MOON_houseno) == 3) {
 					System.out.println("Moon is applying to square L10 " + planets_id.inverse().get(L10)
-							+ " within orb of " + (L10_orb / 60) + "°" + (L10_orb % 60) + "'");
+							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
 				} else if (Math.abs(L10_houseno - MOON_houseno) == 6) {
 					System.out.println("Moon is applying to oppose L10 " + planets_id.inverse().get(L10)
-							+ " within orb of " + (L10_orb / 60) + "°" + (L10_orb % 60) + "'");
+							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
 				} else if (Math.abs(L10_houseno - MOON_houseno) == 0) {
 					System.out.println("Moon is applying to conjuct L10 " + planets_id.inverse().get(L10)
-							+ " within orb of " + (L10_orb / 60) + "°" + (L10_orb % 60) + "'");
+							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < L4_minutes && L4 != 2) {
-			if (L4_orb <= 180) {
+		if (MOON_minutes < L4_minutes || MOON_minutes > L4_minutes && L4 != 2) {
+			if (Math.abs(L4_orb) <= 180) {
 				if (Math.abs(L4_houseno - MOON_houseno) == 2) {
 					System.out.println("Moon is applying to sextile L4 " + planets_id.inverse().get(L4)
-							+ " within orb of " + (L4_orb / 60) + "°" + (L4_orb % 60) + "'");
+							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
 				} else if (Math.abs(L4_houseno - MOON_houseno) == 3) {
 					System.out.println("Moon is applying to square L4 " + planets_id.inverse().get(L4)
-							+ " within orb of " + (L4_orb / 60) + "°" + (L4_orb % 60) + "'");
+							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
 				} else if (Math.abs(L4_houseno - MOON_houseno) == 6) {
 					System.out.println("Moon is applying to oppose L4 " + planets_id.inverse().get(L4)
-							+ " within orb of " + (L4_orb / 60) + "°" + (L4_orb % 60) + "'");
+							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
 				} else if (Math.abs(L4_houseno - MOON_houseno) == 0) {
 					System.out.println("Moon is applying to conjuct L4 " + planets_id.inverse().get(L4)
-							+ " within orb of " + (L4_orb / 60) + "°" + (L4_orb % 60) + "'");
+							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < POF_minutes) {
-			if (POF_orb <= 180) {
+		if (MOON_minutes < POF_minutes || MOON_minutes > POF_minutes) {
+			if (Math.abs(POF_orb) <= 180) {
 				if (Math.abs(POF_houseno - MOON_houseno) == 2) {
 					System.out.println("Moon is applying to sextile POF within orb of " + (POF_orb / 60) + "°"
-							+ (POF_orb % 60) + "'");
+							+ Math.abs(POF_orb % 60) + "'");
 				} else if (Math.abs(POF_houseno - MOON_houseno) == 3) {
 					System.out.println("Moon is applying to square POF within orb of " + (POF_orb / 60) + "°"
-							+ (POF_orb % 60) + "'");
+							+ Math.abs(POF_orb % 60) + "'");
 				} else if (Math.abs(POF_houseno - MOON_houseno) == 6) {
 					System.out.println("Moon is applying to oppose POF within orb of " + (POF_orb / 60) + "°"
-							+ (POF_orb % 60) + "'");
+							+ Math.abs(POF_orb % 60) + "'");
 				} else if (Math.abs(POF_houseno - MOON_houseno) == 0) {
 					System.out.println("Moon is applying to conjuct POF within orb of " + (POF_orb / 60) + "°"
-							+ (POF_orb % 60) + "'");
+							+ Math.abs(POF_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (L1_minutes < POF_minutes) {
-			if (L1_poforb <= 180) {
+		if (L1_minutes < POF_minutes || L1_minutes > POF_minutes) {
+			if (Math.abs(L1_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L1_houseno) == 6) {
 					System.out
-							.println("L1 " + planets_id.inverse().get(L1) + " is applying to oppose POF within orb of "
-									+ (L1_poforb / 60) + "°" + (L1_poforb % 60) + "'");
+							.println("L1 " + planets_id.inverse().get(L1) + retro.get(Iterables.get(planets.get(L1), 0)) + " is applying to oppose POF within orb of "
+									+ (L1_poforb / 60) + "°" + Math.abs(L1_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L1_houseno) == 0) {
 					System.out
-							.println("L1 " + planets_id.inverse().get(L1) + " is applying to conjuct POF within orb of "
-									+ (L1_poforb / 60) + "°" + (L1_poforb % 60) + "'");
+							.println("L1 " + planets_id.inverse().get(L1) + retro.get(Iterables.get(planets.get(L1), 0)) + " is applying to conjuct POF within orb of "
+									+ (L1_poforb / 60) + "°" + Math.abs(L1_poforb % 60) + "'");
 				}
 			}
 		}
 
-		if (L7_minutes < POF_minutes) {
-			if (L7_poforb <= 180) {
+		if (L7_minutes < POF_minutes || L7_minutes > POF_minutes) {
+			if (Math.abs(L7_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L7_houseno) == 6) {
 					System.out
-							.println("L7 " + planets_id.inverse().get(L7) + " is applying to oppose POF within orb of "
-									+ (L7_poforb / 60) + "°" + (L7_poforb % 60) + "'");
+							.println("L7 " + planets_id.inverse().get(L7) + retro.get(Iterables.get(planets.get(L7), 0)) + " is applying to oppose POF within orb of "
+									+ (L7_poforb / 60) + "°" + Math.abs(L7_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L7_houseno) == 0) {
 					System.out
-							.println("L7 " + planets_id.inverse().get(L7) + " is applying to conjuct POF within orb of "
-									+ (L7_poforb / 60) + "°" + (L7_poforb % 60) + "'");
+							.println("L7 " + planets_id.inverse().get(L7) + retro.get(Iterables.get(planets.get(L7), 0)) + " is applying to conjuct POF within orb of "
+									+ (L7_poforb / 60) + "°" + Math.abs(L7_poforb % 60) + "'");
 				}
 			}
 		}
 
-		if (L10_minutes < POF_minutes) {
-			if (L10_poforb <= 180) {
+		if (L10_minutes < POF_minutes || L10_minutes > POF_minutes) {
+			if (Math.abs(L10_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L10_houseno) == 6) {
 					System.out.println(
-							"L10 " + planets_id.inverse().get(L10) + " is applying to oppose POF within orb of "
-									+ (L10_poforb / 60) + "°" + (L10_poforb % 60) + "'");
+							"L10 " + planets_id.inverse().get(L10) + retro.get(Iterables.get(planets.get(L10), 0)) + " is applying to oppose POF within orb of "
+									+ (L10_poforb / 60) + "°" + Math.abs(L10_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L10_houseno) == 0) {
 					System.out.println(
-							"L10 " + planets_id.inverse().get(L10) + " is applying to conjuct POF within orb of "
-									+ (L10_poforb / 60) + "°" + (L10_poforb % 60) + "'");
+							"L10 " + planets_id.inverse().get(L10) + retro.get(Iterables.get(planets.get(L10), 0)) + " is applying to conjuct POF within orb of "
+									+ (L10_poforb / 60) + "°" + Math.abs(L10_poforb % 60) + "'");
 				}
 			}
 		}
 
-		if (L4_minutes < POF_minutes) {
-			if (L4_poforb <= 180) {
+		if (L4_minutes < POF_minutes || L4_minutes > POF_minutes) {
+			if (Math.abs(L4_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L4_houseno) == 6) {
 					System.out
-							.println("L4 " + planets_id.inverse().get(L4) + " is applying to oppose POF within orb of "
-									+ (L4_poforb / 60) + "°" + (L4_poforb % 60) + "'");
+							.println("L4 " + planets_id.inverse().get(L4) + retro.get(Iterables.get(planets.get(L4), 0)) + " is applying to oppose POF within orb of "
+									+ (L4_poforb / 60) + "°" + Math.abs(L4_poforb % 60) + "'");
 				} else if (Math.abs(POF_houseno - L4_houseno) == 0) {
 					System.out
-							.println("L4 " + planets_id.inverse().get(L4) + " is applying to conjuct POF within orb of "
-									+ (L4_poforb / 60) + "°" + (L4_poforb % 60) + "'");
+							.println("L4 " + planets_id.inverse().get(L4) + retro.get(Iterables.get(planets.get(L4), 0)) + " is applying to conjuct POF within orb of "
+									+ (L4_poforb / 60) + "°" + Math.abs(L4_poforb % 60) + "'");
 				}
 			}
 		}
@@ -1886,11 +1891,11 @@ public class Gambler_Dharma_v4_2{
 //-------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		System.out.println("(Module 8)					Good and Bad Conjuctions : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		int ketu_houseno = Iterables.get(planets.get(9), 3);
@@ -2100,14 +2105,38 @@ public class Gambler_Dharma_v4_2{
 		}
 		bar.setValue(90);
 		Thread.sleep(1000);
-//------------------------------------------------------------------------------------------------------------------
+		
+//--------------------------------------------------------------------------------------------------------------------
+				
+				System.out.println(
+						"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
+								+ "");
+				System.out.println("(Module 9)					Planetary War : ");
+				System.out.println(
+						"------------------------------------------------------------------------------------------------------------------------------------------"
+								+ "");
+				
+				int pw1 = L1_minutes - L7_minutes;
+				int pw2 = L10_minutes - L4_minutes;
+				
+				System.out.println("Tip :- The planet with lower magnitude (more brighter) and higher declination (more higher) wins the war");
+				
+				if(Math.abs(pw1) <= 60 && L1_houseno == L7_houseno) {
+					System.out.println("\nThere is planetary war between L1 "+planets_id.inverse().get(L1)+" and L7 "+planets_id.inverse().get(L7));
+				}
+				
+				if(Math.abs(pw2) <= 60 && L4_houseno == L10_houseno) {
+					System.out.println("\nThere is planetary war between L4 "+planets_id.inverse().get(L4)+" and L10 "+planets_id.inverse().get(L10));
+				}
+				
+//--------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
-				"\n\n\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
-		System.out.println("(Module 9)					Star Lord Reversal (SLR) : ");
+		System.out.println("(Module 10)					Star Lord Reversal (SLR) : ");
 		System.out.println(
-				"---------------------------------------------------------------------------------------------------------------------------------------------------------------------"
+				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 
 		int L1_starlord = Iterables.get(planets.get(L1), 4);
@@ -2152,25 +2181,49 @@ public class Gambler_Dharma_v4_2{
 					+ " is sitting in ASC, Hence Star Lord Reversal is applicable in this chart");
 			flag = false;
 		}
+		if(L1 == 1 && L1_starlord == 8) {
+			System.out.println("L1 Sun in nakshatra of Rahu who owns Aquarius results into Star Lord Reversal");
+			flag = false;
+		}
+		if(L7 == 1 && L7_starlord == 8) {
+			System.out.println("L7 Sun in nakshatra of Rahu who owns Aquarius results into Star Lord Reversal");
+			flag = false;
+		}
 		if (flag) {
 			System.out.println("\n[FINAL] : Star Lord Reversal is not applicable in this chart");
 		}
 		if (L1_houseno == 1 && L7_houseno == 7) {
 			System.out.println("\n[EXPERIMENTAL] : ASC Lord " + planets_id.inverse().get(L1) + " and DSC Lord "
-					+ planets_id.inverse().get(L7) + " are in ASCENDANT and DSCENDANT respectively");
+					+ planets_id.inverse().get(L7) + " are in Ascendant and Descendant respectively");
 		}
 		if (L1_houseno == 7 && L7_houseno == 1) {
 			System.out.println("\n[EXPERIMENTAL] : ASC Lord " + planets_id.inverse().get(L1)
 					+ " is in DSC and DSC Lord " + planets_id.inverse().get(L7) + " is in ASC");
 		}
-
+		
 		System.out.println(
-				"\n\n---------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-
+				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("												THE END");
+		System.out.println(
+				"------------------------------------------------------------------------------------------------------------------------------------------"
+						+ "");
+		
+		System.out.println("All Planets Signification Value");
+		System.out.println("================================");
+		System.out.println("Sun =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Sun"));
+		System.out.println("Moon =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Moon"));
+		System.out.println("Mars =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Mars"));
+		System.out.println("Mercury =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Mercury"));
+		System.out.println("Venus =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Venus"));
+		System.out.println("Jupiter =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Jupiter"));
+		System.out.println("Saturn =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Saturn"));
+		System.out.println("Rahu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Rahu"));
+		System.out.println("Ketu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Ketu"));
+		
 		bar.setValue(100);
 		Thread.sleep(1000);
 //		bar.setString("Send Email [ Y / N ] : ");
-
+		
 //------------------------------------------------------------------------------------------------------------------
 //					bar.setString("Generating PDF....");
 		// Code to generate PDF
@@ -2211,7 +2264,7 @@ public class Gambler_Dharma_v4_2{
 
 		System.setOut(console);
 		System.out.println(
-				"\n\n\n\n\n\n\n\n========== Your Sport's Prediction Using Vedic & Western Astrology - Gambler's Dharma + Frawley's Testimonies Report has been generated successfully. Thank You for your patience ==========");
+				"\n\n\n\n\n\n\n\nYour Sport's Prediction Using Vedic & Western Astrology - Gambler's Dharma + Frawley's Testimonies Report has been generated successfully. Thank You for your patience");
 
 		//System.out.print("\n\nDo you want to send out this report via Email [ Y / N ] : ");
 //		String input = "Disabled";

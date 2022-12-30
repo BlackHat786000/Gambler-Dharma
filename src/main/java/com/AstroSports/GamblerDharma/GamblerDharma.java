@@ -17,13 +17,6 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.activation.FileDataSource;
-import javax.mail.BodyPart;
-import javax.mail.Multipart;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMultipart;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
@@ -39,13 +32,57 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import com.email.durgesh.Email;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Multimap;
 
 public class GamblerDharma {
+	
+//	static Multimap<Integer, Integer> planets_western;
+//	static Multimap<Integer, Integer> cusps_western;
+//	static HashBiMap<String, Integer> planets_id;
+//	
+//	public static void setMultiMaps(Multimap<Integer, Integer> planet_western, Multimap<Integer, Integer> cusp_western, HashBiMap<String, Integer> planet_id) {
+//		planets_western = planet_western;
+//		cusps_western = cusp_western;
+//		planets_id = planet_id;
+//	}
+//	
+//	public static void withinOrb(int planet1, int planet2, int orb, String type) {
+//		int planet1Retro = Iterables.get(planets_western.get(planet1), 0);
+//		int planet1Sign = Iterables.get(planets_western.get(planet1), 1);
+//		int planet1Minutes = Iterables.get(planets_western.get(planet1), 2);
+//		int planet1HouseNo = Iterables.get(planets_western.get(planet1), 3);
+//		int planet1AntisciaSign = Iterables.get(planets_western.get(planet1), 4);
+//		int planet1AntisciaMinutes = Iterables.get(planets_western.get(planet1), 5);
+//		int planet1AntisciaHouseNo = Iterables.get(planets_western.get(planet1), 6);
+//		
+//		int planet2Retro = Iterables.get(planets_western.get(planet2), 0);
+//		int planet2Sign = Iterables.get(planets_western.get(planet2), 1);
+//		int planet2Minutes = Iterables.get(planets_western.get(planet2), 2);
+//		int planet2HouseNo = Iterables.get(planets_western.get(planet2), 3);
+//		int planet2AntisciaSign = Iterables.get(planets_western.get(planet2), 4);
+//		int planet2AntisciaMinutes = Iterables.get(planets_western.get(planet2), 5);
+//		int planet2AntisciaHouseNo = Iterables.get(planets_western.get(planet2), 6);
+//		
+//		int planet12Orb = Math.abs(planet2Minutes - planet1Minutes);
+//		int planet12ApofOrb = Math.abs(planet2AntisciaMinutes - planet1Minutes);
+//		
+//		if(type.equals("p1 conjuct p2")) {
+//			if (Math.abs(planet12Orb) <= orb && planet1HouseNo == planet2HouseNo) {
+//				System.out.println(planets_id.inverse().get(planet1) + " conjuct "+planets_id.inverse().get(planet2)+" within orb of " + (planet12Orb / 60)
+//						+ "°" + Math.abs(planet12Orb % 60) + "'");
+//			}
+//		}
+//		
+//		if(type.equals("p1 conjuct p2_apof")) {
+//			if (Math.abs(planet12ApofOrb) <= orb && planet1HouseNo == planet2AntisciaHouseNo) {
+//				System.out.println(planets_id.inverse().get(planet1) + " conjuct Antiscion of "+planets_id.inverse().get(planet2)+" within orb of " + (planet12ApofOrb / 60)
+//						+ "°" + Math.abs(planet12ApofOrb % 60) + "'");
+//			}
+//		}
+//	}
 
 	public static void main(String[] args) throws Exception {
 		
@@ -258,6 +295,20 @@ public class GamblerDharma {
 		retro.put(1, "(R)");
 		retro.put(2, "**");
 		retro.put(3, "++");
+		
+		HashMap<Integer, Integer> antiscia = new HashMap<Integer, Integer>();
+		antiscia.put(1, 6);
+		antiscia.put(2, 5);
+		antiscia.put(3, 4);
+		antiscia.put(4, 3);
+		antiscia.put(5, 2);
+		antiscia.put(6, 1);
+		antiscia.put(7, 12);
+		antiscia.put(8, 11);
+		antiscia.put(9, 10);
+		antiscia.put(10, 9);
+		antiscia.put(11, 8);
+		antiscia.put(12, 7);
 
 //		System.setProperty("webdriver.opera.driver", "D:\\drivers\\operadriver.exe");
 //		OperaOptions options = new OperaOptions();
@@ -312,10 +363,14 @@ public class GamblerDharma {
 		driver.findElement(By.id("m-hr-tzone")).sendKeys(Keys.chord(Keys.CONTROL, "a"), timezone);
 
 		driver.findElement(By.id("m-submit-hr-form")).click();
-
-//		Thread.sleep(10000);
+		
+//		Select ayanamsa = new Select(new WebDriverWait(driver, 60).until(ExpectedConditions.elementToBeClickable(By.id("hr-ayanamsa"))));
+//		ayanamsa.selectByValue("LAHERI");
+//
+//		Thread.sleep(2500);
 
 		Multimap<Integer, Integer> planets = ArrayListMultimap.create();
+		Multimap<Integer, Integer> planets_western = ArrayListMultimap.create();
 
 		// for loop for the 12 planets
 		for (int i = 1; i <= 12; i++) {
@@ -328,8 +383,10 @@ public class GamblerDharma {
 			// getting planet retro or not @ index 0
 			if (planet_name.contains("(R)")) {
 				planets.put(i, 1);
+				planets_western.put(i, 1);
 			} else {
 				planets.put(i, 0);
+				planets_western.put(i, 0);
 			}
 
 			// for loop for planet attributes
@@ -365,6 +422,21 @@ public class GamblerDharma {
 					int planet_M = Integer.parseInt(planet_prop.substring(3, 5));
 					int planet_minutes = planet_D * 60 + planet_M;
 					planets.put(i, planet_minutes);
+					
+					// planets western logic - sign@1, total-minutes@2
+					int planet_minutes_western = planet_minutes - 355;
+					int planet_sign = Iterables.get(planets.get(i), 1);
+					if (planet_minutes_western >= 0) {
+						if (planet_sign == 12) {
+							planet_sign = 0;
+						}
+						planets_western.put(i, planet_sign + 1);
+						planets_western.put(i, planet_minutes_western);
+					} else {
+						planets_western.put(i, planet_sign);
+						planets_western.put(i, planet_minutes_western + 1800);
+					}
+					
 				}
 
 				// getting planet house_no @ index 3
@@ -379,7 +451,9 @@ public class GamblerDharma {
 				}
 			} // end of inner loop
 		} // end of outer loop
+		
 		bar.setValue(10);
+		
 		// Calculation of Upaketu - 13
 		planets.put(13, 0);
 		int uk_sign_no = Iterables.get(planets.get(1), 1) - 1;
@@ -388,8 +462,21 @@ public class GamblerDharma {
 		planets.put(13, Iterables.get(planets.get(1), 2));
 		planets.put(13, uk_house_no);
 		planets.put(13, 0);
-//System.out.println(planets);
-
+		
+		// Calculation of Upaketu (Western)
+		planets_western.put(13, 0);
+		int UK_minutes_western = Iterables.get(planets.get(13), 2) - 355;
+		if (UK_minutes_western >= 0) {
+			if (uk_sign_no == 12) {
+				uk_sign_no = 0;
+			}
+			planets_western.put(13, uk_sign_no + 1);
+			planets_western.put(13, UK_minutes_western);
+		} else {
+			planets_western.put(13, uk_sign_no);
+			planets_western.put(13, UK_minutes_western + 1800);
+		}
+		
 //------------------------------------------------------------------------------------------------------------------
 
 		// getting planet self-2 / tenanted-0 / untenanted-3 @ index 6
@@ -415,6 +502,7 @@ public class GamblerDharma {
 //------------------------------------------------------------------------------------------------------------------
 
 		Multimap<Integer, Integer> cusps = ArrayListMultimap.create();
+		Multimap<Integer, Integer> cusps_western = ArrayListMultimap.create();
 
 		// for 12 signs
 		for (int i = 1; i <= 12; i++) {
@@ -452,6 +540,20 @@ public class GamblerDharma {
 					int cusp_M = Integer.parseInt(cusp_prop.substring(3, 5));
 					int cusp_minutes = cusp_D * 60 + cusp_M;
 					cusps.put(i, cusp_minutes);
+					
+					// cusps western logic - sign@0, total-minutes@1
+					int cusp_minutes_western = cusp_minutes - 355;
+					int cusp_sign = Iterables.get(cusps.get(i), 0);
+					if (cusp_minutes_western >= 0) {
+						if (cusp_sign == 12) {
+							cusp_sign = 0;
+						}
+						cusps_western.put(i, cusp_sign + 1);
+						cusps_western.put(i, cusp_minutes_western);
+					} else {
+						cusps_western.put(i, cusp_sign);
+						cusps_western.put(i, cusp_minutes_western + 1800);
+					}
 				}
 
 				// getting cusp sub lord @ index 3
@@ -460,7 +562,6 @@ public class GamblerDharma {
 				}
 			} // end of inner loop
 		} // end of outer loop
-			// System.out.println(cusps);
 
 		// placing ASC as planet with key=0 in planets multimap
 		planets.put(0, 0);
@@ -468,9 +569,9 @@ public class GamblerDharma {
 		planets.put(0, Iterables.get(cusps.get(1), 1));
 		planets.put(0, 0);
 		planets.put(0, 0);
-		// System.out.println(planets);
 
 		Multimap<String, Integer> D1_Lords = ArrayListMultimap.create();
+		Multimap<String, Integer> D1_Lords_Western = ArrayListMultimap.create();
 
 		// Logic to form D1 Whole Sign
 		HashBiMap<Integer, Integer> whole_sign = HashBiMap.create();
@@ -484,9 +585,7 @@ public class GamblerDharma {
 			D1_Lords.put(lords.get(sign), i);
 			counter++;
 		}
-		// System.out.println(whole_sign);
-		// System.out.println(D1_Lords);
-
+		
 		// Calculation of POF
 		int asc_sign = Iterables.get(planets.get(0), 1);
 		int asc_minutes = Iterables.get(planets.get(0), 2);
@@ -515,6 +614,21 @@ public class GamblerDharma {
 		planets.put(14, pof_minutes);
 		planets.put(14, whole_sign.inverse().get(pof_sign));
 		planets.put(14, 0);
+		
+		// Calculation of POF (Western)
+		planets_western.put(14, 0);
+		int POF_minutes_western = pof_minutes - 355;
+		int POF_sign = Iterables.get(planets.get(14), 1);
+		if (POF_minutes_western >= 0) {
+			if (POF_sign == 12) {
+				POF_sign = 0;
+			}
+			planets_western.put(14, POF_sign + 1);
+			planets_western.put(14, POF_minutes_western);
+		} else {
+			planets_western.put(14, POF_sign);
+			planets_western.put(14, POF_minutes_western + 1800);
+		}
 
 		// 0 -> navamsa_degree , 1 -> navamsa_sign
 		Multimap<Integer, Integer> navamsa = ArrayListMultimap.create();
@@ -552,7 +666,7 @@ public class GamblerDharma {
 			navamsa.put(i, navamsa_minutes); if (nplanet_sign_no == 0) { nplanet_sign_no = 12; }
 			navamsa.put(i, nplanet_sign_no);
 
-		}  // System.out.println(navamsa);
+		}
 
 		Multimap<String, Integer> D9_Lords = ArrayListMultimap.create();
 
@@ -571,9 +685,7 @@ public class GamblerDharma {
 			D9_Lords.put(lords.get(sign), i);
 			n_counter++;
 		}
-//		 System.out.println(navamsa_whole_sign);
-//		 System.out.println(D9_Lords);
-
+		
 //----------------------------------------------------------------------------------------------------------------------
 		System.out.println("D1 Lagna : " + Iterables.get(planets.get(0), 2) / 60 + "°" + Iterables.get(planets.get(0), 2) % 60 + "' " + signs_id.inverse().get(Iterables.get(planets.get(0), 1)));
 		System.out.println("\nD9 Lagna : " + Iterables.get(navamsa.get(0), 0) / 60 + "°" + Iterables.get(navamsa.get(0), 0) % 60 + "' " + signs_id.inverse().get(navamsa_whole_sign.get(1))+"\n\n");
@@ -601,25 +713,25 @@ public class GamblerDharma {
 				if ((Math.abs(orb) <= 150) && (planet_house_no == 1 || planet_house_no == 7 || planet_house_no == 10
 						|| planet_house_no == 4 || planet_house_no == 6 || planet_house_no == 12)) {
 					System.out.println(
-							"\n***************************************************************************************************************************");
+							"\n******************************************************************************************************************************************");
 					System.out.println("Lord of " + D1_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(planet_sign) + ") is on " + planet_house_no
 							+ " cusp within orb of " + (orb / 60) + "°" + Math.abs(orb % 60) + "'");
 					System.out.println(
-							"***************************************************************************************************************************\n");
+							"******************************************************************************************************************************************\n");
 				} else if ((Math.abs(orb) <= 180) && (planet_retro == 1)
 						&& (planet_house_no == 1 || planet_house_no == 7 || planet_house_no == 10
 								|| planet_house_no == 4 || planet_house_no == 6 || planet_house_no == 12)) {
 					System.out.println(
-							"\n***************************************************************************************************************************");
+							"\n******************************************************************************************************************************************");
 					System.out.println("Lord of " + D1_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(planet_sign) + ") is on " + planet_house_no
 							+ " cusp within orb of " + (orb / 60) + "°" + Math.abs(orb % 60)
 							+ "' (3° orb for retro planets)");
 					System.out.println(
-							"***************************************************************************************************************************\n");
+							"******************************************************************************************************************************************\n");
 				} else if ((Math.abs(orb) <= 150)
 						&& (planet_house_no == 2 || planet_house_no == 8 || planet_house_no == 3 || planet_house_no == 9
 								|| planet_house_no == 5 || planet_house_no == 11)) {
@@ -635,8 +747,7 @@ public class GamblerDharma {
 							+ "' (out of 2°30' orb)");
 				}
 			}
-
-//					boolean show = true;
+			
 			for (int j = 1; j <= 12; j++) {
 
 				int cuspal_sign = Iterables.get(cusps.get(j), 0);
@@ -647,9 +758,7 @@ public class GamblerDharma {
 				if ((cuspal_sign == planet_sign && j != planet_house_no && Math.abs(orb2) <= 150)
 						&& (planet_house_no == 1 || planet_house_no == 7 || planet_house_no == 10
 								|| planet_house_no == 4 || planet_house_no == 6 || planet_house_no == 12)) {
-//							 if(show) {
-//									System.out.println("\n\nStolen Cusps : ");
-//									System.out.println("=============\n"); show = false; }
+					
 					System.out.println("\n[STOLEN CUSP] Lord of " + D1_Lords.get(planets_id.inverse().get(i))
 							+ " house " + planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0))
 							+ " (" + signs_id.inverse().get(planet_sign) + ") is on " + j + " cusp within orb of "
@@ -658,6 +767,7 @@ public class GamblerDharma {
 				}
 			}
 		}
+		
 		bar.setValue(20);
 		Thread.sleep(1000);
 
@@ -692,13 +802,13 @@ public class GamblerDharma {
 			if (navamsa_asc_sign == navamsa_planet_sign) {
 				if (Math.abs(orb) <= 150) {
 					System.out.println(
-							"\n***************************************************************************************************************************");
+							"\n******************************************************************************************************************************************");
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(navamsa_planet_sign) + ")"
 							+ " is in D9 Ascendant (1st) within orb of " + (orb / 60) + "°" + Math.abs(orb % 60) + "'");
 					System.out.println(
-							"***************************************************************************************************************************\n");
+							"******************************************************************************************************************************************\n");
 					d9_first = planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " + "
 							+ d9_first;
 				} else {
@@ -714,13 +824,13 @@ public class GamblerDharma {
 			if (navamsa_dsc_sign == navamsa_planet_sign) {
 				if (Math.abs(orb) <= 150) {
 					System.out.println(
-							"\n***************************************************************************************************************************");
+							"\n******************************************************************************************************************************************");
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(navamsa_planet_sign) + ")"
 							+ " is in D9 Descendant (7th) within orb of " + (orb / 60) + "°" + Math.abs(orb % 60) + "'");
 					System.out.println(
-							"***************************************************************************************************************************\n");
+							"******************************************************************************************************************************************\n");
 					d9_seventh = planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " + "
 							+ d9_seventh;
 				} else {
@@ -736,13 +846,13 @@ public class GamblerDharma {
 			if (navamsa_mc_sign == navamsa_planet_sign) {
 				if (Math.abs(orb) <= 150) {
 					System.out.println(
-							"\n***************************************************************************************************************************");
+							"\n******************************************************************************************************************************************");
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(navamsa_planet_sign) + ")" + " is in D9 10th within orb of "
 							+ (orb / 60) + "°" + Math.abs(orb % 60) + "'");
 					System.out.println(
-							"***************************************************************************************************************************\n");
+							"******************************************************************************************************************************************\n");
 				} else {
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
@@ -753,13 +863,13 @@ public class GamblerDharma {
 			if (navamsa_ic_sign == navamsa_planet_sign) {
 				if (Math.abs(orb) <= 150) {
 					System.out.println(
-							"\n***************************************************************************************************************************");
+							"\n******************************************************************************************************************************************");
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
 							+ signs_id.inverse().get(navamsa_planet_sign) + ")" + " is in D9 4th within orb of "
 							+ (orb / 60) + "°" + Math.abs(orb % 60) + "'");
 					System.out.println(
-							"***************************************************************************************************************************\n");
+							"******************************************************************************************************************************************\n");
 				} else {
 					System.out.println("Lord of " + D9_Lords.get(planets_id.inverse().get(i)) + " house "
 							+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets.get(i), 0)) + " ("
@@ -773,6 +883,7 @@ public class GamblerDharma {
 		System.out.println("\n\nD9 Combo : ");
 		System.out.println("\nD9 ASC 1st : " + StringUtils.chop(StringUtils.chop(d9_first)));
 		System.out.println("D9 DSC 7th : " + StringUtils.chop(StringUtils.chop(d9_seventh)));
+		
 		bar.setValue(30);
 		Thread.sleep(1000);
 
@@ -1295,14 +1406,7 @@ public class GamblerDharma {
 				DSC_VHQ = (float) (DSC_VHQ + 0.5);
 			}
 		}
-
-//					int Rahu = Iterables.get(planets.get(8), 3);
-//					if(Rahu == 1 || Rahu == 3 || Rahu == 6 || Rahu == 10 || Rahu == 11) {
-//						ASC_VHQ = (float) (ASC_VHQ + 2);
-//					} else if(Rahu == 7 || Rahu == 9 || Rahu == 12 || Rahu == 4 || Rahu == 5) {
-//						DSC_VHQ = (float) (DSC_VHQ + 2);
-//					}
-
+		
 		int JupiterR = Iterables.get(planets.get(5), 0);
 		int Jupiter = Iterables.get(planets.get(5), 3);
 		int Jupiter_sign = Iterables.get(planets.get(5), 1);
@@ -1493,56 +1597,56 @@ public class GamblerDharma {
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 5 && Math.abs(regulus_orb) <= 60)) {
 				System.out.println(
-						"\n***************************************************************************************************************************");
+						"\n******************************************************************************************************************************************");
 				System.out.println(i + " cusp is on The Regulus (6° Leo) within orb of " + (regulus_orb / 60) + "°"
 						+ Math.abs(regulus_orb % 60) + "'");
 				System.out.println(
-						"***************************************************************************************************************************\n");
+						"******************************************************************************************************************************************\n");
 			}
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 3 && Math.abs(pollux_orb) <= 60)) {
 				System.out.println(
-						"\n***************************************************************************************************************************");
+						"\n******************************************************************************************************************************************");
 				System.out.println(i + " cusp is on The Pollux (29° 30' Gemini) within orb of " + (pollux_orb / 60)
 						+ "°" + Math.abs(pollux_orb % 60) + "'");
 				System.out.println(
-						"***************************************************************************************************************************\n");
+						"******************************************************************************************************************************************\n");
 			}
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 7 && Math.abs(zuben_orb) <= 60)) {
 				System.out.println(
-						"\n***************************************************************************************************************************");
+						"\n******************************************************************************************************************************************");
 				System.out.println(i + " cusp is on The Zuben Elgenubi (21° Libra) within orb of " + (zuben_orb / 60)
 						+ "°" + Math.abs(zuben_orb % 60) + "'");
 				System.out.println(
-						"***************************************************************************************************************************\n");
+						"******************************************************************************************************************************************\n");
 			}
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 3 && Math.abs(bettelguese_orb) <= 60)) {
 				System.out.println(
-						"\n***************************************************************************************************************************");
+						"\n******************************************************************************************************************************************");
 				System.out.println(i + " cusp is on The Bettelguese (5° Gemini) within orb of " + (bettelguese_orb / 60)
 						+ "°" + Math.abs(bettelguese_orb % 60) + "'");
 				System.out.println(
-						"***************************************************************************************************************************\n");
+						"******************************************************************************************************************************************\n");
 			}
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 6 && Math.abs(spica_orb) <= 60)) {
 				System.out.println(
-						"\n***************************************************************************************************************************");
+						"\n******************************************************************************************************************************************");
 				System.out.println(i + " cusp is on The Spica (29° 55' Virgo) within orb of " + (spica_orb / 60) + "°"
 						+ Math.abs(spica_orb % 60) + "'");
 				System.out.println(
-						"***************************************************************************************************************************\n");
+						"******************************************************************************************************************************************\n");
 			}
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 5 && Math.abs(denebola_orb) <= 60)) {
 				System.out.println(
-						"\n***************************************************************************************************************************");
+						"\n******************************************************************************************************************************************");
 				System.out.println(i + " cusp is on The Denebola (27° 45' Leo) within orb of " + (denebola_orb / 60)
 						+ "°" + Math.abs(denebola_orb % 60) + "'");
 				System.out.println(
-						"***************************************************************************************************************************\n");
+						"******************************************************************************************************************************************\n");
 			}
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 2 && Math.abs(algol_orb) <= 60)) {
@@ -1886,8 +1990,10 @@ public class GamblerDharma {
 				}
 			}
 		}
+		
 		bar.setValue(80);
 		Thread.sleep(1000);
+		
 //-------------------------------------------------------------------------------------------------------------------
 
 		System.out.println(
@@ -2220,13 +2326,79 @@ public class GamblerDharma {
 		System.out.println("Rahu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Rahu"));
 		System.out.println("Ketu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Ketu"));
 		
+		// Logic to form D1 Whole Sign (Western)
+		HashBiMap<Integer, Integer> whole_sign_western = HashBiMap.create();
+		int counterw = 0;
+		for (int i = 1; i <= 12; i++) {
+			int sign = Iterables.get(cusps_western.get(1), 0) + counterw;
+			if (sign >= 13) {
+				sign = sign % 12;
+			}
+			whole_sign_western.put(i, sign);
+			D1_Lords_Western.put(lords.get(sign), i);
+			counterw++;
+		}
+		
+		// Logic to get house no. of western planets @ index 3
+		for(int i=1; i<=14; i++) {
+			planets_western.put(i, whole_sign_western.inverse().get(Iterables.get(planets_western.get(i), 1)));
+		}
+		
+		// Logic to get antiscia of planets
+		for(int i=1; i<=14; i++) {
+			int planet_sign = Iterables.get(planets_western.get(i), 1);
+			int antiscia_sign = antiscia.get(planet_sign);
+			int planet_minutes = Iterables.get(planets_western.get(i), 2);
+			int antiscia_minutes = 1800 - planet_minutes;
+			planets_western.put(i, antiscia_sign);
+			planets_western.put(i, antiscia_minutes);
+			planets_western.put(i, whole_sign_western.inverse().get(Iterables.get(planets_western.get(i), 4)));
+		}
+		
+		bar.setValue(95);
+		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("Planets -----> Antiscion Points");
+		System.out.println("================================");
+		for(int i=1; i<=14; i++) {
+			System.out.println("Lord of " + D1_Lords_Western.get(planets_id.inverse().get(i)) + " house "
+					+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets_western.get(i), 0)) + " " + Iterables.get(planets_western.get(i), 2)/60 + "°"+Iterables.get(planets_western.get(i), 2)%60 + "'" + " ("
+					+ signs_id.inverse().get(Iterables.get(planets_western.get(i), 1)) + ") Antiscion Point is " + 
+					Iterables.get(planets_western.get(i), 5)/60 + "°"+Iterables.get(planets_western.get(i), 5)%60 + "' "
+					+ signs_id.inverse().get(Iterables.get(planets_western.get(i), 4)));
+		}
+		
+		// APOF on either side of 1st or 7th
+		int apof_sign = Iterables.get(planets_western.get(14), 4);
+		int apof_minutes = Iterables.get(planets_western.get(14), 5);
+		int first_cusp_sign = Iterables.get(cusps_western.get(1), 0);
+		int first_cusp_minutes = Iterables.get(cusps_western.get(1), 1);
+		int seventh_cusp_sign = Iterables.get(cusps_western.get(7), 0);
+		int seventh_cusp_minutes = Iterables.get(cusps_western.get(7), 1);
+		int apof_first_orb = Math.abs(first_cusp_minutes - apof_minutes);
+		int apof_seventh_orb = Math.abs(seventh_cusp_minutes - apof_minutes);
+		if(apof_sign == first_cusp_sign && apof_first_orb <= 300) {
+			System.out.println("\nAF (antiscion of Fortuna) on 1st cusp within "+apof_first_orb/60+"°"+apof_first_orb%60+"'");
+		}
+		if(apof_sign == seventh_cusp_sign && apof_seventh_orb <= 300) {
+			System.out.println("\nAF (antiscion of Fortuna) on 7th cusp within "+apof_seventh_orb/60+"°"+apof_seventh_orb%60+"'");
+		}
+		
+//		GamblerDharma.setMultiMaps(planets_western, cusps_western, planets_id);
+//		
+//		UR or RA conjunct Fortuna or AF within 1.2 degrees= +10 pts. Opposition= -10 pts
+//		GamblerDharma.withinOrb(10, 14, 80, "p1 conjuct p2");
+//		GamblerDharma.withinOrb(8, 14, 80, "p1 conjuct p2");
+//		GamblerDharma.withinOrb(10, 14, 80, "p1 conjuct p2_apof");
+//		GamblerDharma.withinOrb(8, 14, 80, "p1 conjuct p2_apof");
+		
+		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
+		
 		bar.setValue(100);
 		Thread.sleep(1000);
-//		bar.setString("Send Email [ Y / N ] : ");
 		
 //------------------------------------------------------------------------------------------------------------------
 //					bar.setString("Generating PDF....");
-		// Code to generate PDF
+					// Code to generate PDF
 //					Document document = new Document(PageSize.A4);
 //					File f = new File("C://Users//yadav//Desktop//Gambler's Dharma//PDF//" + name + ".pdf");
 //					try
@@ -2263,65 +2435,39 @@ public class GamblerDharma {
 		driver.quit();
 
 		System.setOut(console);
+		
 		System.out.println(
 				"\n\n\n\n\n\n\n\nYour Sport's Prediction Using Vedic & Western Astrology - Gambler's Dharma + Frawley's Testimonies Report has been generated successfully. Thank You for your patience");
-
-		//System.out.print("\n\nDo you want to send out this report via Email [ Y / N ] : ");
-//		String input = "Disabled";
 		
 		String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
 		Pattern pattern = Pattern.compile(regex);
 		Matcher matcher = pattern.matcher(frame1.email.getText());
 		
 		if(matcher.matches()) {
-//			System.out.print("\nEnter Email-ID for receiving this report : ");
 			String email_id = frame1.email.getText();
 			bar.setString("Sending Email");
 			
 //--------------------------------------------------------------------------------------------------------------------
 
-			System.out.println("\n\nSending ASTRO-SPORTS-REPORT via Email to " + email_id + ".........");
+			System.out.println("\n\nSending ASTRO-SPORTS-REPORT via Email to " + email_id + ".........\n");
 
 			try {
-				Email email = new Email("udit01061998@gmail.com", "bhajjiterminator");
-				email.setFrom("astro-sports@gmail.com", "ASTRO-SPORTS");
-				email.setSubject(name + "  (" + date + "-" + month + "-" + year + ")");
-				// Create the message part
-				BodyPart messageBodyPart = new MimeBodyPart();
-
-				// Now set the actual message
-				messageBodyPart.setText("Please find attached ASTRO-SPORTS-REPORT based on Gambler's Dharma and Frawley's for  :  \n\n" + "Name  :  " + name
+				String subject = name + "  (" + date + "-" + month + "-" + year + ")";
+				String message = "Please find attached ASTRO-SPORTS-REPORT based on Gambler's Dharma and Frawley's for  :  \n\n" + "Name  :  " + name
 						+ "\n\n" + "Date  :  " + date + "-" + month + "-" + year + "\n\n" + "Time  :  " + hour + ":"
 						+ minute + ":" + second + "\n\n" + "Stadium  :  " + sname
-						+ "\n\n" + "Timezone : " + timezone + "\n\n\n\nTHANK YOU !!   BEST OF LUCK");
-
-				// Create a multipar message
-				Multipart multipart = new MimeMultipart();
-
-				// Set text message part
-				multipart.addBodyPart(messageBodyPart);
-
-				// Part two is attachment
-				messageBodyPart = new MimeBodyPart();
-				String filename = "C:\\Users\\yadav\\Desktop\\Gambler's Dharma\\" + name + ".txt";
-				DataSource source = new FileDataSource(filename);
-				messageBodyPart.setDataHandler(new DataHandler(source));
-				messageBodyPart.setFileName(name + "-" + date + "-" + month + "-" + year + ".txt");
-				multipart.addBodyPart(messageBodyPart);
-
-				// Send the complete message parts
-				email.setContent(multipart, "");
-				// email.setContent("<h1>This is to inform you that this is just a testing
-				// mail</h1>", "text/html");
-				email.addRecipient(email_id);
-				email.send();
+						+ "\n\n" + "Timezone : " + timezone + "\n\n\n\nTHANK YOU !!   BEST OF LUCK";
+				String filePath = "C:\\Users\\yadav\\Desktop\\Gambler's Dharma\\" + name + " " + sdate + ".txt";
+				String fileName = name + "-" + date + "-" + month + "-" + year + ".txt";
+				GMailerA.send(subject, message, filePath, fileName);
+				bar.setString("Email Sent");
 			} catch (Exception e) {
 				System.out
-						.println("\nHuh huh  <(-_-)>  Something got really messed up in Email Sending Mechanism....\n");
+						.println("\nHuh huh  <(-_-)>  Something got really messed up in GMailer....\n");
 				System.out.println(e);
+				bar.setString("Failed to send email");
 			}
 
-			bar.setString("Email Sent");
 			Thread.sleep(1000);
 			bar.setString("BYE! :)");
 			frame.setVisible(false);
@@ -2350,7 +2496,10 @@ public class GamblerDharma {
 //		Thread.sleep(25000);
 //	}
 //--------------------------------------------------------------------------------------------------------------------
-
+		
+//		planets_western -> retro @ 0, sign @ 1, minutes @ 2, house no @ 3
+//		antiscia sign @ 4, antiscia minutes @ 5, antiscia house no @ 6
+//		cusps_western -> sign @ 0, minutes @ 1
+		
 	} // end of main()
-
 } // end of class

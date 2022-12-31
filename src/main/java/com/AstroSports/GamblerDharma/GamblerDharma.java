@@ -39,51 +39,124 @@ import com.google.common.collect.Multimap;
 
 public class GamblerDharma {
 	
-//	static Multimap<Integer, Integer> planets_western;
-//	static Multimap<Integer, Integer> cusps_western;
-//	static HashBiMap<String, Integer> planets_id;
-//	
-//	public static void setMultiMaps(Multimap<Integer, Integer> planet_western, Multimap<Integer, Integer> cusp_western, HashBiMap<String, Integer> planet_id) {
-//		planets_western = planet_western;
-//		cusps_western = cusp_western;
-//		planets_id = planet_id;
-//	}
-//	
-//	public static void withinOrb(int planet1, int planet2, int orb, String type) {
-//		int planet1Retro = Iterables.get(planets_western.get(planet1), 0);
-//		int planet1Sign = Iterables.get(planets_western.get(planet1), 1);
-//		int planet1Minutes = Iterables.get(planets_western.get(planet1), 2);
-//		int planet1HouseNo = Iterables.get(planets_western.get(planet1), 3);
-//		int planet1AntisciaSign = Iterables.get(planets_western.get(planet1), 4);
-//		int planet1AntisciaMinutes = Iterables.get(planets_western.get(planet1), 5);
-//		int planet1AntisciaHouseNo = Iterables.get(planets_western.get(planet1), 6);
-//		
-//		int planet2Retro = Iterables.get(planets_western.get(planet2), 0);
-//		int planet2Sign = Iterables.get(planets_western.get(planet2), 1);
-//		int planet2Minutes = Iterables.get(planets_western.get(planet2), 2);
-//		int planet2HouseNo = Iterables.get(planets_western.get(planet2), 3);
-//		int planet2AntisciaSign = Iterables.get(planets_western.get(planet2), 4);
-//		int planet2AntisciaMinutes = Iterables.get(planets_western.get(planet2), 5);
-//		int planet2AntisciaHouseNo = Iterables.get(planets_western.get(planet2), 6);
-//		
-//		int planet12Orb = Math.abs(planet2Minutes - planet1Minutes);
-//		int planet12ApofOrb = Math.abs(planet2AntisciaMinutes - planet1Minutes);
-//		
-//		if(type.equals("p1 conjuct p2")) {
-//			if (Math.abs(planet12Orb) <= orb && planet1HouseNo == planet2HouseNo) {
-//				System.out.println(planets_id.inverse().get(planet1) + " conjuct "+planets_id.inverse().get(planet2)+" within orb of " + (planet12Orb / 60)
-//						+ "°" + Math.abs(planet12Orb % 60) + "'");
-//			}
-//		}
-//		
-//		if(type.equals("p1 conjuct p2_apof")) {
-//			if (Math.abs(planet12ApofOrb) <= orb && planet1HouseNo == planet2AntisciaHouseNo) {
-//				System.out.println(planets_id.inverse().get(planet1) + " conjuct Antiscion of "+planets_id.inverse().get(planet2)+" within orb of " + (planet12ApofOrb / 60)
-//						+ "°" + Math.abs(planet12ApofOrb % 60) + "'");
-//			}
-//		}
-//	}
-
+	static Multimap<Integer, Integer> planets_western;
+	static Multimap<Integer, Integer> cusps_western;
+	static HashBiMap<String, Integer> planets_id;
+	static HashBiMap<Integer, String> retro;
+	static HashMap<Integer, String> aspects;
+	static Multimap<String, Integer> D1_Lords_Western;
+	static HashBiMap<String, Integer> signs_id;
+	static HashMap<Integer, String> lords;
+	static HashBiMap<Integer, Integer> whole_sign_western;
+	
+	public static void setMultiMaps(Multimap<Integer, Integer> planet_western, Multimap<Integer, Integer> cusp_western, HashBiMap<String, Integer> planet_id, HashBiMap<Integer, String> retros, HashMap<Integer, String> aspect, Multimap<String, Integer> D1_Lords_Westerns, HashBiMap<String, Integer> signs_ids, HashMap<Integer, String> lord, HashBiMap<Integer, Integer> whole_sign_westerns) {
+		planets_western = planet_western;
+		cusps_western = cusp_western;
+		planets_id = planet_id;
+		retro = retros;
+		aspects = aspect;
+		D1_Lords_Western = D1_Lords_Westerns;
+		signs_id = signs_ids;
+		lords = lord;
+		whole_sign_western = whole_sign_westerns;
+	}
+	
+	public static int getDispOfPlanet(int planet) {
+		return planets_id.get(lords.get(Iterables.get(planets_western.get(planet), 1)));
+	}
+	
+	public static int getLordOfHouse(int house) {
+		return planets_id.get(lords.get(whole_sign_western.get(house)));
+	}
+	
+	public static int retroOrNot(int planet) {
+		return Iterables.get(planets_western.get(planet), 0);
+	}
+	
+	public static void calculateAspects(int nor_apof1, int planet1, boolean apply, int aspect, int nor_apof2, int planet2, int orb) {
+		
+		String p1;
+		String p2;
+		if(nor_apof1 == 4) {
+			p1 = "Antiscion Of ";
+		} else {
+			p1 = "";
+		}
+		if(nor_apof2 == 4) {
+			p2 = "Antiscion Of ";
+		} else {
+			p2 = "";
+		}
+		if(planet1 == getDispOfPlanet(14)) {
+			p1 = "Dispositor Of Fortuna";
+		}
+		if(planet2 == getDispOfPlanet(14)) {
+			p2 = "Dispositor Of Fortuna";
+		}
+		
+		int planet1Sign = Iterables.get(planets_western.get(planet1), nor_apof1);
+		int planet1Minutes = Iterables.get(planets_western.get(planet1), nor_apof1 + 1);
+		int planet1HouseNo = Iterables.get(planets_western.get(planet1), nor_apof1 + 2);
+		
+		int planet2Sign = Iterables.get(planets_western.get(planet2), nor_apof1);
+		int planet2Minutes = Iterables.get(planets_western.get(planet2), nor_apof1 + 1);
+		int planet2HouseNo = Iterables.get(planets_western.get(planet2), nor_apof1 + 2);
+		
+		int ORB = Math.abs(planet2Minutes - planet1Minutes);
+		int ASPECT = Math.abs(planet2HouseNo - planet1HouseNo);
+		
+		if(ASPECT == 10) {
+			ASPECT = 2; // sextile
+		} else if(ASPECT == 9) {
+			ASPECT = 3; // square
+		} else if(ASPECT == 8) {
+			ASPECT = 4; // trine
+		}
+		
+		if(apply == false) {
+			if (ORB <= orb && ASPECT == aspect) {
+				System.out.println("\n-> "+p1+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet1))+" "+planets_id.inverse().get(planet1)+retro.get(Iterables.get(planets_western.get(planet1), 0))+"("+planet1Minutes/60+"°"+planet1Minutes%60+"'"+signs_id.inverse().get(planet1Sign)+")"+" "+aspects.get(aspect)+" "+p2+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet2))+" "+planets_id.inverse().get(planet2)+retro.get(Iterables.get(planets_western.get(planet2), 0))+"("+planet2Minutes/60+"°"+planet2Minutes%60+"'"+signs_id.inverse().get(planet2Sign)+")"+" within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
+			}
+		} else if(apply == true && planet2Minutes >= planet1Minutes) {
+			if (ORB <= orb && ASPECT == aspect) {
+				System.out.println("\n-> "+p1+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet1))+" "+planets_id.inverse().get(planet1)+retro.get(Iterables.get(planets_western.get(planet1), 0))+"("+planet1Minutes/60+"°"+planet1Minutes%60+"'"+signs_id.inverse().get(planet1Sign)+")"+" applying to "+aspects.get(aspect)+" "+p2+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet2))+" "+planets_id.inverse().get(planet2)+retro.get(Iterables.get(planets_western.get(planet2), 0))+"("+planet2Minutes/60+"°"+planet2Minutes%60+"'"+signs_id.inverse().get(planet2Sign)+")"+" within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
+			}
+		}
+		
+	}
+	
+	public static void calculateCusps(int nor_apof, int planet, int cusp, int orb) {
+		
+		String p;
+		if(nor_apof == 4) {
+			p = "Antiscion Of ";
+		} else {
+			p = "";
+		}
+		
+		int planetSign = Iterables.get(planets_western.get(planet), nor_apof);
+		int planetMinutes = Iterables.get(planets_western.get(planet), nor_apof + 1);
+//		int planetHouseNo = Iterables.get(planets_western.get(planet), nor_apof + 2);
+		
+		int cuspSign = Iterables.get(cusps_western.get(cusp), 0);
+		int cuspMinutes = Iterables.get(cusps_western.get(cusp), 1);
+		
+		int ORB = Math.abs(cuspMinutes - planetMinutes);
+		
+		String OI;
+		if(cuspMinutes >= planetMinutes) {
+			OI = "ON";
+		} else {
+			OI = "INSIDE";
+		}
+		
+		// planetSign == cuspSign && planetHouseNo == cusp && ORB <= orb
+		if(planetSign == cuspSign && ORB <= orb) {
+			System.out.println("\n-> "+p+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet))+" "+planets_id.inverse().get(planet)+retro.get(Iterables.get(planets_western.get(planet), 0))+"("+planetMinutes/60+"°"+planetMinutes%60+"'"+signs_id.inverse().get(planetSign)+")"+" "+OI+" "+cusp+" cusp"+"("+cuspMinutes/60+"°"+cuspMinutes%60+"'"+signs_id.inverse().get(cuspSign)+") within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
+		}
+		
+	}
+	
 	public static void main(String[] args) throws Exception {
 		
 //		String fetched_uid = "null";
@@ -309,7 +382,14 @@ public class GamblerDharma {
 		antiscia.put(10, 9);
 		antiscia.put(11, 8);
 		antiscia.put(12, 7);
-
+		
+		HashMap<Integer, String> aspects = new HashMap<Integer, String>();
+		aspects.put(0, "conjuct");
+		aspects.put(2, "sextile");
+		aspects.put(3, "square");
+		aspects.put(4, "trine");
+		aspects.put(6, "oppose");
+		
 //		System.setProperty("webdriver.opera.driver", "D:\\drivers\\operadriver.exe");
 //		OperaOptions options = new OperaOptions();
 //		options.addArguments("user-data-dir=C:\\Users\\yadav\\AppData\\Roaming\\Opera Software\\Opera Stable");
@@ -2314,8 +2394,8 @@ public class GamblerDharma {
 				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		
-		System.out.println("All Planets Signification Value");
-		System.out.println("================================");
+		System.out.println("Vedic Extras : Planets Signification Value");
+		System.out.println("------------------------------------------");
 		System.out.println("Sun =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Sun"));
 		System.out.println("Moon =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Moon"));
 		System.out.println("Mars =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Mars"));
@@ -2344,7 +2424,7 @@ public class GamblerDharma {
 			planets_western.put(i, whole_sign_western.inverse().get(Iterables.get(planets_western.get(i), 1)));
 		}
 		
-		// Logic to get antiscia of planets
+		// Logic to get antiscia of planets -> antiscia sign,minutes,house@4,5,6
 		for(int i=1; i<=14; i++) {
 			int planet_sign = Iterables.get(planets_western.get(i), 1);
 			int antiscia_sign = antiscia.get(planet_sign);
@@ -2357,41 +2437,198 @@ public class GamblerDharma {
 		
 		bar.setValue(95);
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("Planets -----> Antiscion Points");
-		System.out.println("================================");
-		for(int i=1; i<=14; i++) {
-			System.out.println("Lord of " + D1_Lords_Western.get(planets_id.inverse().get(i)) + " house "
-					+ planets_id.inverse().get(i) + retro.get(Iterables.get(planets_western.get(i), 0)) + " " + Iterables.get(planets_western.get(i), 2)/60 + "°"+Iterables.get(planets_western.get(i), 2)%60 + "'" + " ("
-					+ signs_id.inverse().get(Iterables.get(planets_western.get(i), 1)) + ") Antiscion Point is " + 
-					Iterables.get(planets_western.get(i), 5)/60 + "°"+Iterables.get(planets_western.get(i), 5)%60 + "' "
-					+ signs_id.inverse().get(Iterables.get(planets_western.get(i), 4)));
+		
+		System.out.println("Frawley Testimonies (Tropical)");
+		System.out.println("-------------------------------");
+		
+		// setting multiMaps
+		GamblerDharma.setMultiMaps(planets_western, cusps_western, planets_id, retro, aspects, D1_Lords_Western, signs_id, lords, whole_sign_western);
+		
+// calculateAspects(int nor_apof1, int planet1, boolean apply, int aspect, int nor_apof2, int planet2, int orb)
+		
+//		UR(10) or RA(8) conjunct Fortuna(14) or AF within 1.2 degrees= +10 pts. Opposition= -10 pts
+		GamblerDharma.calculateAspects(1, 10, false, 0, 1, 14, 72);
+		GamblerDharma.calculateAspects(1, 10, false, 0, 4, 14, 72);
+		GamblerDharma.calculateAspects(1, 10, false, 6, 1, 14, 72);
+		GamblerDharma.calculateAspects(1, 10, false, 6, 4, 14, 72);
+		
+		GamblerDharma.calculateAspects(1, 8, false, 0, 1, 14, 72);
+		GamblerDharma.calculateAspects(1, 8, false, 0, 4, 14, 72);
+		GamblerDharma.calculateAspects(1, 8, false, 6, 1, 14, 72);
+		GamblerDharma.calculateAspects(1, 8, false, 6, 4, 14, 72);
+		
+//		PLUTO(12) conjunct or opposite Fortuna(14), AF, or Dispositor of Fortuna(14)= bad for favorites -10 pts. 1.2 degrees orb
+		GamblerDharma.calculateAspects(1, 12, false, 0, 1, 14, 72);
+		GamblerDharma.calculateAspects(1, 12, false, 0, 4, 14, 72);
+		GamblerDharma.calculateAspects(1, 12, false, 6, 1, 14, 72);
+		GamblerDharma.calculateAspects(1, 12, false, 6, 4, 14, 72);
+		// Calculate dispositor of Fortuna(14)
+		int dispPOF = GamblerDharma.getDispOfPlanet(14);
+		GamblerDharma.calculateAspects(1, 12, false, 0, 1, dispPOF, 72);
+		GamblerDharma.calculateAspects(1, 12, false, 6, 1, dispPOF, 72);
+		
+//		Combustion_Sun(1) of Fortuna(14) or AF is bad = -10 pts. Orb is 2 degrees either side of SU
+		GamblerDharma.calculateAspects(1, 1, false, 0, 1, 14, 120);
+		GamblerDharma.calculateAspects(1, 1, false, 0, 4, 14, 120);
+		
+//		MO(2) applying to conjunct Fortuna(14) or AF = + 9 pts (5 degree orb)
+		GamblerDharma.calculateAspects(1, 2, true, 0, 1, 14, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 0, 4, 14, 300);
+		
+//		MO(2) applying to oppose Fortuna(14) or AF= -9 pts (5 degree orb)
+		GamblerDharma.calculateAspects(1, 2, true, 6, 1, 14, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 6, 4, 14, 300);
+		
+//		MO(2) trine(4)/square(3) to Fortuna(14) or AF = +/- 6 pts (applying aspect only, 5 deg orb)
+		GamblerDharma.calculateAspects(1, 2, true, 4, 1, 14, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 4, 4, 14, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 3, 1, 14, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 3, 4, 14, 300);
+		
+		// Getting L1, L7, L10, L4
+		int L1_western = GamblerDharma.getLordOfHouse(1);
+		int L7_western = GamblerDharma.getLordOfHouse(7);
+		int L10_western = GamblerDharma.getLordOfHouse(10);
+		int L4_western = GamblerDharma.getLordOfHouse(4);
+		
+//		Dispositor of Fortuna applying to conjunct or oppose Fortuna or AF = +/- 9 pts. 5 deg orb. Do not use if L1 or L7 is dispositor
+		if (dispPOF != L1_western && dispPOF != L7_western) {
+			GamblerDharma.calculateAspects(1, dispPOF, true, 0, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, dispPOF, true, 0, 4, 14, 300);
+			GamblerDharma.calculateAspects(1, dispPOF, true, 6, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, dispPOF, true, 6, 4, 14, 300);
 		}
 		
-		// APOF on either side of 1st or 7th
-		int apof_sign = Iterables.get(planets_western.get(14), 4);
-		int apof_minutes = Iterables.get(planets_western.get(14), 5);
-		int first_cusp_sign = Iterables.get(cusps_western.get(1), 0);
-		int first_cusp_minutes = Iterables.get(cusps_western.get(1), 1);
-		int seventh_cusp_sign = Iterables.get(cusps_western.get(7), 0);
-		int seventh_cusp_minutes = Iterables.get(cusps_western.get(7), 1);
-		int apof_first_orb = Math.abs(first_cusp_minutes - apof_minutes);
-		int apof_seventh_orb = Math.abs(seventh_cusp_minutes - apof_minutes);
-		if(apof_sign == first_cusp_sign && apof_first_orb <= 300) {
-			System.out.println("\nAF (antiscion of Fortuna) on 1st cusp within "+apof_first_orb/60+"°"+apof_first_orb%60+"'");
+//		L1 or L7 applying to conjunct or oppose Fortuna or AF= +/- 9 pts. 5 deg orb. L1 or L7 should not be Rx
+		// Getting Rx status for L1, L7, L10, L4
+		int L1_retro = GamblerDharma.retroOrNot(L1_western);
+		int L7_retro = GamblerDharma.retroOrNot(L7_western);
+		int L10_retro = GamblerDharma.retroOrNot(L10_western);
+		int L4_retro = GamblerDharma.retroOrNot(L4_western);
+		if (L1_retro != 1) {
+			GamblerDharma.calculateAspects(1, L1_western, true, 0, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L1_western, true, 0, 4, 14, 300);
+			GamblerDharma.calculateAspects(1, L1_western, true, 6, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L1_western, true, 6, 4, 14, 300);
 		}
-		if(apof_sign == seventh_cusp_sign && apof_seventh_orb <= 300) {
-			System.out.println("\nAF (antiscion of Fortuna) on 7th cusp within "+apof_seventh_orb/60+"°"+apof_seventh_orb%60+"'");
+		if (L7_retro != 1) {
+			GamblerDharma.calculateAspects(1, L7_western, true, 0, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L7_western, true, 0, 4, 14, 300);
+			GamblerDharma.calculateAspects(1, L7_western, true, 6, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L7_western, true, 6, 4, 14, 300);
 		}
 		
-//		GamblerDharma.setMultiMaps(planets_western, cusps_western, planets_id);
-//		
-//		UR or RA conjunct Fortuna or AF within 1.2 degrees= +10 pts. Opposition= -10 pts
-//		GamblerDharma.withinOrb(10, 14, 80, "p1 conjuct p2");
-//		GamblerDharma.withinOrb(8, 14, 80, "p1 conjuct p2");
-//		GamblerDharma.withinOrb(10, 14, 80, "p1 conjuct p2_apof");
-//		GamblerDharma.withinOrb(8, 14, 80, "p1 conjuct p2_apof");
+//		L4 or L10 applying to conjunct or oppose Fortuna or AF = +/-7 pts
+		if (L10_retro != 1) {
+			GamblerDharma.calculateAspects(1, L10_western, true, 0, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L10_western, true, 0, 4, 14, 300);
+			GamblerDharma.calculateAspects(1, L10_western, true, 6, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L10_western, true, 6, 4, 14, 300);
+		}
+		if (L4_retro != 1) {
+			GamblerDharma.calculateAspects(1, L4_western, true, 0, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L4_western, true, 0, 4, 14, 300);
+			GamblerDharma.calculateAspects(1, L4_western, true, 6, 1, 14, 300);
+			GamblerDharma.calculateAspects(1, L4_western, true, 6, 4, 14, 300);
+		}
 		
-		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
+//		L1 or L7 or AL1 or AL7 conjunct RA(8) or UR(10) within 1 degree is positive= +10 pts, within 2 deg = +5 pts
+		GamblerDharma.calculateAspects(1, L1_western, false, 0, 1, 8, 120);
+		GamblerDharma.calculateAspects(1, L1_western, false, 0, 1, 10, 120);
+		GamblerDharma.calculateAspects(4, L1_western, false, 0, 1, 8, 120);
+		GamblerDharma.calculateAspects(4, L1_western, false, 0, 1, 10, 120);
+		
+		GamblerDharma.calculateAspects(1, L7_western, false, 0, 1, 8, 120);
+		GamblerDharma.calculateAspects(1, L7_western, false, 0, 1, 10, 120);
+		GamblerDharma.calculateAspects(4, L7_western, false, 0, 1, 8, 120);
+		GamblerDharma.calculateAspects(4, L7_western, false, 0, 1, 10, 120);
+		
+//		L1 or L7 or AL1 or AL7 conjunct KE(9) or NE(11) within 1 degree is negative= -10 pts, within 2 deg = -5 pts
+		GamblerDharma.calculateAspects(1, L1_western, false, 0, 1, 9, 120);
+		GamblerDharma.calculateAspects(1, L1_western, false, 0, 1, 11, 120);
+		GamblerDharma.calculateAspects(4, L1_western, false, 0, 1, 9, 120);
+		GamblerDharma.calculateAspects(4, L1_western, false, 0, 1, 11, 120);
+		
+		GamblerDharma.calculateAspects(1, L7_western, false, 0, 1, 9, 120);
+		GamblerDharma.calculateAspects(1, L7_western, false, 0, 1, 11, 120);
+		GamblerDharma.calculateAspects(4, L7_western, false, 0, 1, 9, 120);
+		GamblerDharma.calculateAspects(4, L7_western, false, 0, 1, 11, 120);
+		
+//		L1, L7, L10, L4 when combust (within 2 deg of SU(1) are harmed -5.5 pts)
+		if (L1_western != 1) {
+			GamblerDharma.calculateAspects(1, L1_western, false, 0, 1, 1, 120);
+		}
+		if (L7_western != 1) {
+			GamblerDharma.calculateAspects(1, L7_western, false, 0, 1, 1, 120);
+		}
+		if (L10_western != 1) {
+			GamblerDharma.calculateAspects(1, L10_western, false, 0, 1, 1, 120);
+		}
+		if (L4_western != 1) {
+			GamblerDharma.calculateAspects(1, L4_western, false, 0, 1, 1, 120);
+		}
+		
+//		MO(2) applying to aspect L1= +9. L7 = -9. Use 5 deg. ORB i.e. Conjuct(0) Sextile (2), Square (3), Trine (4), Opposition (6)
+		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L1_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L1_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L1_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L1_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L1_western, 300);
+		
+		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L7_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L7_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L7_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L7_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L7_western, 300);
+		
+//		MO applying to aspect L10= +6.5, L4= -6.5
+		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L10_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L10_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L10_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L10_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L10_western, 300);
+		
+		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L4_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L4_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L4_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L4_western, 300);
+		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L4_western, 300);
+		
+//		AF (antiscion of Fortuna) on either side of 1st or 7th cusp within 2.5 degrees (5 degree total orb)
+		GamblerDharma.calculateCusps(4, 14, 1, 300);
+		GamblerDharma.calculateCusps(4, 14, 7, 300);
+		
+//		L1 or L7 ON or INSIDE opponent’s cusp (1/10/7/4) within 2.5 deg is the strongest testimony: +/- 12 pts
+		GamblerDharma.calculateCusps(1, L1_western, 1, 150);
+		GamblerDharma.calculateCusps(1, L1_western, 10, 150);
+		GamblerDharma.calculateCusps(1, L1_western, 7, 150);
+		GamblerDharma.calculateCusps(1, L1_western, 4, 150);
+		
+		GamblerDharma.calculateCusps(1, L7_western, 1, 150);
+		GamblerDharma.calculateCusps(1, L7_western, 10, 150);
+		GamblerDharma.calculateCusps(1, L7_western, 7, 150);
+		GamblerDharma.calculateCusps(1, L7_western, 4, 150);
+		
+//		Antiscion of L1 or L7 on or inside a cusp within 2.5 deg is less strong: +/- 7 pts
+		GamblerDharma.calculateCusps(4, L1_western, 1, 150);
+		GamblerDharma.calculateCusps(4, L1_western, 10, 150);
+		GamblerDharma.calculateCusps(4, L1_western, 7, 150);
+		GamblerDharma.calculateCusps(4, L1_western, 4, 150);
+		
+		GamblerDharma.calculateCusps(4, L7_western, 1, 150);
+		GamblerDharma.calculateCusps(4, L7_western, 10, 150);
+		GamblerDharma.calculateCusps(4, L7_western, 7, 150);
+		GamblerDharma.calculateCusps(4, L7_western, 4, 150);
+		
+//		Antiscion of MO(2) on or inside 1 or 7 cusp= +/- 8 pts. Use 2.5 deg orb
+		GamblerDharma.calculateCusps(4, 2, 1, 150);
+		GamblerDharma.calculateCusps(4, 2, 7, 150);
+		
+//		Antiscion of MO(2) on or inside 4/10 cusp= +/- 5 pts. Use 2.5 deg orb
+		GamblerDharma.calculateCusps(4, 2, 4, 150);
+		GamblerDharma.calculateCusps(4, 2, 10, 150);
+		
+		System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------------");
 		
 		bar.setValue(100);
 		Thread.sleep(1000);

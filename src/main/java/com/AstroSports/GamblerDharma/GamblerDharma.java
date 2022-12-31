@@ -94,16 +94,16 @@ public class GamblerDharma {
 			p2 = "Dispositor Of Fortuna";
 		}
 		
-		int planet1Sign = Iterables.get(planets_western.get(planet1), nor_apof1);
-		int planet1Minutes = Iterables.get(planets_western.get(planet1), nor_apof1 + 1);
-		int planet1HouseNo = Iterables.get(planets_western.get(planet1), nor_apof1 + 2);
+		int planet1Sign = Iterables.get(planets_western.get(planet1), nor_apof1); //System.out.println(planet1Sign);
+		int planet1Minutes = Iterables.get(planets_western.get(planet1), nor_apof1 + 1); //System.out.println(planet1Minutes);
+		int planet1HouseNo = Iterables.get(planets_western.get(planet1), nor_apof1 + 2); //System.out.println(planet1HouseNo);
 		
-		int planet2Sign = Iterables.get(planets_western.get(planet2), nor_apof1);
-		int planet2Minutes = Iterables.get(planets_western.get(planet2), nor_apof1 + 1);
-		int planet2HouseNo = Iterables.get(planets_western.get(planet2), nor_apof1 + 2);
+		int planet2Sign = Iterables.get(planets_western.get(planet2), nor_apof2); //System.out.println(planet2Sign);
+		int planet2Minutes = Iterables.get(planets_western.get(planet2), nor_apof2 + 1); //System.out.println(planet2Minutes);
+		int planet2HouseNo = Iterables.get(planets_western.get(planet2), nor_apof2 + 2); //System.out.println(planet2HouseNo);
 		
-		int ORB = Math.abs(planet2Minutes - planet1Minutes);
-		int ASPECT = Math.abs(planet2HouseNo - planet1HouseNo);
+		int ORB = Math.abs(planet2Minutes - planet1Minutes); //System.out.println(ORB);
+		int ASPECT = Math.abs(planet2HouseNo - planet1HouseNo); //System.out.println(ASPECT);
 		
 		if(ASPECT == 10) {
 			ASPECT = 2; // sextile
@@ -2569,30 +2569,38 @@ public class GamblerDharma {
 		}
 		
 //		MO(2) applying to aspect L1= +9. L7 = -9. Use 5 deg. ORB i.e. Conjuct(0) Sextile (2), Square (3), Trine (4), Opposition (6)
-		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L1_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L1_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L1_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L1_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L1_western, 300);
+		if (L1_western != 2) {
+			GamblerDharma.calculateAspects(1, 2, true, 0, 1, L1_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 2, 1, L1_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 3, 1, L1_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 4, 1, L1_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 6, 1, L1_western, 300);
+		}
 		
-		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L7_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L7_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L7_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L7_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L7_western, 300);
+		if (L7_western != 2) {
+			GamblerDharma.calculateAspects(1, 2, true, 0, 1, L7_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 2, 1, L7_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 3, 1, L7_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 4, 1, L7_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 6, 1, L7_western, 300);
+		}
 		
 //		MO applying to aspect L10= +6.5, L4= -6.5
-		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L10_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L10_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L10_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L10_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L10_western, 300);
+		if (L10_western != 2) {
+			GamblerDharma.calculateAspects(1, 2, true, 0, 1, L10_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 2, 1, L10_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 3, 1, L10_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 4, 1, L10_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 6, 1, L10_western, 300);
+		}
 		
-		GamblerDharma.calculateAspects(1, 2, true, 0, 1, L4_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 2, 1, L4_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 3, 1, L4_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 4, 1, L4_western, 300);
-		GamblerDharma.calculateAspects(1, 2, true, 6, 1, L4_western, 300);
+		if (L4_western != 2) {
+			GamblerDharma.calculateAspects(1, 2, true, 0, 1, L4_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 2, 1, L4_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 3, 1, L4_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 4, 1, L4_western, 300);
+			GamblerDharma.calculateAspects(1, 2, true, 6, 1, L4_western, 300);
+		}
 		
 //		AF (antiscion of Fortuna) on either side of 1st or 7th cusp within 2.5 degrees (5 degree total orb)
 		GamblerDharma.calculateCusps(4, 14, 1, 300);
@@ -2737,6 +2745,8 @@ public class GamblerDharma {
 //		planets_western -> retro @ 0, sign @ 1, minutes @ 2, house no @ 3
 //		antiscia sign @ 4, antiscia minutes @ 5, antiscia house no @ 6
 //		cusps_western -> sign @ 0, minutes @ 1
+		
+		//GamblerDharma.calculateAspects(1, 8, false, 0, 4, 14, 72);
 		
 	} // end of main()
 } // end of class

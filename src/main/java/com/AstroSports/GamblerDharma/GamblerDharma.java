@@ -442,8 +442,9 @@ public class GamblerDharma {
 		
 //		Select ayanamsa = new Select(new WebDriverWait(driver, 60).until(ExpectedConditions.elementToBeClickable(By.id("hr-ayanamsa"))));
 //		ayanamsa.selectByValue("LAHERI");
-//
 //		Thread.sleep(2500);
+		
+//		System.in.read();
 
 		Multimap<Integer, Integer> planets = ArrayListMultimap.create();
 		Multimap<Integer, Integer> planets_western = ArrayListMultimap.create();
@@ -2472,7 +2473,7 @@ public class GamblerDharma {
 		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
 		
 		System.out.println("Frawley Testimonies (Tropical)");
-		System.out.println("-------------------------------");
+		System.out.println("----------------------------->");
 		
 		// setting multiMaps
 		GamblerDharma.setMultiMaps(planets_western, cusps_western, planets_id, retro, aspects, D1_Lords_Western, signs_id, lords, whole_sign_western);

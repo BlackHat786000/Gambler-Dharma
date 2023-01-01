@@ -115,11 +115,11 @@ public class GamblerDharma {
 		
 		if(apply == false) {
 			if (ORB <= orb && ASPECT == aspect) {
-				System.out.println("\n-> "+p1+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet1))+" "+planets_id.inverse().get(planet1)+retro.get(Iterables.get(planets_western.get(planet1), 0))+"("+planet1Minutes/60+"°"+planet1Minutes%60+"'"+signs_id.inverse().get(planet1Sign)+")"+" "+aspects.get(aspect)+" "+p2+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet2))+" "+planets_id.inverse().get(planet2)+retro.get(Iterables.get(planets_western.get(planet2), 0))+"("+planet2Minutes/60+"°"+planet2Minutes%60+"'"+signs_id.inverse().get(planet2Sign)+")"+" within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
+				System.out.println("\n- "+p1+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet1))+" "+planets_id.inverse().get(planet1)+retro.get(Iterables.get(planets_western.get(planet1), 0))+"("+planet1Minutes/60+"°"+planet1Minutes%60+"'"+signs_id.inverse().get(planet1Sign)+")"+" "+aspects.get(aspect)+" "+p2+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet2))+" "+planets_id.inverse().get(planet2)+retro.get(Iterables.get(planets_western.get(planet2), 0))+"("+planet2Minutes/60+"°"+planet2Minutes%60+"'"+signs_id.inverse().get(planet2Sign)+")"+" within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
 			}
 		} else if(apply == true && planet2Minutes >= planet1Minutes) {
 			if (ORB <= orb && ASPECT == aspect) {
-				System.out.println("\n-> "+p1+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet1))+" "+planets_id.inverse().get(planet1)+retro.get(Iterables.get(planets_western.get(planet1), 0))+"("+planet1Minutes/60+"°"+planet1Minutes%60+"'"+signs_id.inverse().get(planet1Sign)+")"+" applying to "+aspects.get(aspect)+" "+p2+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet2))+" "+planets_id.inverse().get(planet2)+retro.get(Iterables.get(planets_western.get(planet2), 0))+"("+planet2Minutes/60+"°"+planet2Minutes%60+"'"+signs_id.inverse().get(planet2Sign)+")"+" within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
+				System.out.println("\n- "+p1+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet1))+" "+planets_id.inverse().get(planet1)+retro.get(Iterables.get(planets_western.get(planet1), 0))+"("+planet1Minutes/60+"°"+planet1Minutes%60+"'"+signs_id.inverse().get(planet1Sign)+")"+" applying to "+aspects.get(aspect)+" "+p2+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet2))+" "+planets_id.inverse().get(planet2)+retro.get(Iterables.get(planets_western.get(planet2), 0))+"("+planet2Minutes/60+"°"+planet2Minutes%60+"'"+signs_id.inverse().get(planet2Sign)+")"+" within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
 			}
 		}
 		
@@ -152,7 +152,7 @@ public class GamblerDharma {
 		
 		// planetSign == cuspSign && planetHouseNo == cusp && ORB <= orb
 		if(planetSign == cuspSign && ORB <= orb) {
-			System.out.println("\n-> "+p+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet))+" "+planets_id.inverse().get(planet)+retro.get(Iterables.get(planets_western.get(planet), 0))+"("+planetMinutes/60+"°"+planetMinutes%60+"'"+signs_id.inverse().get(planetSign)+")"+" "+OI+" "+cusp+" cusp"+"("+cuspMinutes/60+"°"+cuspMinutes%60+"'"+signs_id.inverse().get(cuspSign)+") within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
+			System.out.println("\n- "+p+"L"+D1_Lords_Western.get(planets_id.inverse().get(planet))+" "+planets_id.inverse().get(planet)+retro.get(Iterables.get(planets_western.get(planet), 0))+"("+planetMinutes/60+"°"+planetMinutes%60+"'"+signs_id.inverse().get(planetSign)+")"+" "+OI+" "+cusp+" cusp"+"("+cuspMinutes/60+"°"+cuspMinutes%60+"'"+signs_id.inverse().get(cuspSign)+") within orb of "+(ORB / 60)+"°"+(ORB % 60)+"'");
 		}
 		
 	}
@@ -289,18 +289,14 @@ public class GamblerDharma {
 		System.setOut(o);
 		// System.setOut(console);
 
-		System.out.println(
-				"------------------------------------------------------------------------------------------------------------------------------------------"
-						+ "");
+		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
 		System.out.println("Sports Contest Details :-\n");
 		System.out.println("Name : " + name);
 		System.out.println("Date : " + date + "-" + month + "-" + year);
 		System.out.println("Time : " + hour + ":" + minute + ":" + second);
 		System.out.println("Timezone : " + timezone);
 		System.out.println("Stadium : " + sname);
-		System.out.println(
-				"------------------------------------------------------------------------------------------------------------------------------------------"
-						+ "\n\n");
+		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
 
 		JFrame frame = new JFrame();
 		JProgressBar bar = new JProgressBar(0, 100);
@@ -768,7 +764,10 @@ public class GamblerDharma {
 		
 //----------------------------------------------------------------------------------------------------------------------
 		System.out.println("D1 Lagna : " + Iterables.get(planets.get(0), 2) / 60 + "°" + Iterables.get(planets.get(0), 2) % 60 + "' " + signs_id.inverse().get(Iterables.get(planets.get(0), 1)));
-		System.out.println("\nD9 Lagna : " + Iterables.get(navamsa.get(0), 0) / 60 + "°" + Iterables.get(navamsa.get(0), 0) % 60 + "' " + signs_id.inverse().get(navamsa_whole_sign.get(1))+"\n\n");
+		System.out.println("\nD9 Lagna : " + Iterables.get(navamsa.get(0), 0) / 60 + "°" + Iterables.get(navamsa.get(0), 0) % 60 + "' " + signs_id.inverse().get(navamsa_whole_sign.get(1)));
+		String moon_nak_name = driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/main/article/div/div[4]/div[2]/div[1]/div/div[2]/div/table/tbody/tr[2]/td[4]")).getText();
+		String moon_sub_lord = driver.findElement(By.xpath("/html/body/div[2]/div[2]/div/main/article/div/div[4]/div[2]/div[1]/div/div[2]/div/table/tbody/tr[2]/td[7]")).getText();
+		System.out.println("\nMoon - "+signs_id.inverse().get(Iterables.get(planets.get(2), 1))+" - "+moon_nak_name+"("+planets_id.inverse().get(Iterables.get(planets.get(2), 4))+")"+" - "+moon_sub_lord);
 		System.out.println(
 				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
@@ -1925,85 +1924,100 @@ public class GamblerDharma {
 		int L4_orb = L4_minutes - MOON_minutes;
 		int L4_poforb = POF_minutes - L4_minutes;
 
-		if (MOON_minutes < L1_minutes || MOON_minutes > L1_minutes && L1 != 2) {
+		if (MOON_minutes <= L1_minutes && L1 != 2) {
 			if (Math.abs(L1_orb) <= 180) {
-				if (Math.abs(L1_houseno - MOON_houseno) == 2) {
-					System.out.println("Moon is applying to sextile L1 " + planets_id.inverse().get(L1)
+				if (Math.abs(L1_houseno - MOON_houseno) == 2 || Math.abs(L1_houseno - MOON_houseno) == 10) {
+					System.out.println("Moon is applying to sextile L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0))
 							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
-				} else if (Math.abs(L1_houseno - MOON_houseno) == 3) {
-					System.out.println("Moon is applying to square L1 " + planets_id.inverse().get(L1)
+				} else if (Math.abs(L1_houseno - MOON_houseno) == 3 || Math.abs(L1_houseno - MOON_houseno) == 9) {
+					System.out.println("Moon is applying to square L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0))
+							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
+				} else if (Math.abs(L1_houseno - MOON_houseno) == 4 || Math.abs(L1_houseno - MOON_houseno) == 8) {
+					System.out.println("Moon is applying to trine L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0))
 							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
 				} else if (Math.abs(L1_houseno - MOON_houseno) == 6) {
-					System.out.println("Moon is applying to oppose L1 " + planets_id.inverse().get(L1)
+					System.out.println("Moon is applying to oppose L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0))
 							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
 				} else if (Math.abs(L1_houseno - MOON_houseno) == 0) {
-					System.out.println("Moon is applying to conjuct L1 " + planets_id.inverse().get(L1)
+					System.out.println("Moon is applying to conjuct L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0))
 							+ " within orb of " + (L1_orb / 60) + "°" + Math.abs(L1_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < L7_minutes || MOON_minutes > L7_minutes && L7 != 2) {
+		if (MOON_minutes <= L7_minutes && L7 != 2) {
 			if (Math.abs(L7_orb) <= 180) {
-				if (Math.abs(L7_houseno - MOON_houseno) == 2) {
-					System.out.println("Moon is applying to sextile L7 " + planets_id.inverse().get(L7)
+				if (Math.abs(L7_houseno - MOON_houseno) == 2 || Math.abs(L7_houseno - MOON_houseno) == 10) {
+					System.out.println("Moon is applying to sextile L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0))
 							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
-				} else if (Math.abs(L7_houseno - MOON_houseno) == 3) {
-					System.out.println("Moon is applying to square L7 " + planets_id.inverse().get(L7)
+				} else if (Math.abs(L7_houseno - MOON_houseno) == 3 || Math.abs(L7_houseno - MOON_houseno) == 9) {
+					System.out.println("Moon is applying to square L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0))
+							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
+				} else if (Math.abs(L7_houseno - MOON_houseno) == 4 || Math.abs(L7_houseno - MOON_houseno) == 8) {
+					System.out.println("Moon is applying to trine L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0))
 							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
 				} else if (Math.abs(L7_houseno - MOON_houseno) == 6) {
-					System.out.println("Moon is applying to oppose L7 " + planets_id.inverse().get(L7)
+					System.out.println("Moon is applying to oppose L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0))
 							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
 				} else if (Math.abs(L7_houseno - MOON_houseno) == 0) {
-					System.out.println("Moon is applying to conjuct L7 " + planets_id.inverse().get(L7)
+					System.out.println("Moon is applying to conjuct L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0))
 							+ " within orb of " + (L7_orb / 60) + "°" + Math.abs(L7_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < L10_minutes || MOON_minutes > L10_minutes && L10 != 2) {
+		if (MOON_minutes <= L10_minutes && L10 != 2) {
 			if (Math.abs(L10_orb) <= 180) {
-				if (Math.abs(L10_houseno - MOON_houseno) == 2) {
-					System.out.println("Moon is applying to sextile L10 " + planets_id.inverse().get(L10)
+				if (Math.abs(L10_houseno - MOON_houseno) == 2 || Math.abs(L10_houseno - MOON_houseno) == 10) {
+					System.out.println("Moon is applying to sextile L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0))
 							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
-				} else if (Math.abs(L10_houseno - MOON_houseno) == 3) {
-					System.out.println("Moon is applying to square L10 " + planets_id.inverse().get(L10)
+				} else if (Math.abs(L10_houseno - MOON_houseno) == 3 || Math.abs(L10_houseno - MOON_houseno) == 9) {
+					System.out.println("Moon is applying to square L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0))
+							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
+				} else if (Math.abs(L10_houseno - MOON_houseno) == 4 || Math.abs(L10_houseno - MOON_houseno) == 8) {
+					System.out.println("Moon is applying to trine L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0))
 							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
 				} else if (Math.abs(L10_houseno - MOON_houseno) == 6) {
-					System.out.println("Moon is applying to oppose L10 " + planets_id.inverse().get(L10)
+					System.out.println("Moon is applying to oppose L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0))
 							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
 				} else if (Math.abs(L10_houseno - MOON_houseno) == 0) {
-					System.out.println("Moon is applying to conjuct L10 " + planets_id.inverse().get(L10)
+					System.out.println("Moon is applying to conjuct L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0))
 							+ " within orb of " + (L10_orb / 60) + "°" + Math.abs(L10_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < L4_minutes || MOON_minutes > L4_minutes && L4 != 2) {
+		if (MOON_minutes <= L4_minutes && L4 != 2) {
 			if (Math.abs(L4_orb) <= 180) {
-				if (Math.abs(L4_houseno - MOON_houseno) == 2) {
-					System.out.println("Moon is applying to sextile L4 " + planets_id.inverse().get(L4)
+				if (Math.abs(L4_houseno - MOON_houseno) == 2 || Math.abs(L4_houseno - MOON_houseno) == 10) {
+					System.out.println("Moon is applying to sextile L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0))
 							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
-				} else if (Math.abs(L4_houseno - MOON_houseno) == 3) {
-					System.out.println("Moon is applying to square L4 " + planets_id.inverse().get(L4)
+				} else if (Math.abs(L4_houseno - MOON_houseno) == 3 || Math.abs(L4_houseno - MOON_houseno) == 9) {
+					System.out.println("Moon is applying to square L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0))
+							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
+				} else if (Math.abs(L4_houseno - MOON_houseno) == 4 || Math.abs(L4_houseno - MOON_houseno) == 8) {
+					System.out.println("Moon is applying to trine L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0))
 							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
 				} else if (Math.abs(L4_houseno - MOON_houseno) == 6) {
-					System.out.println("Moon is applying to oppose L4 " + planets_id.inverse().get(L4)
+					System.out.println("Moon is applying to oppose L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0))
 							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
 				} else if (Math.abs(L4_houseno - MOON_houseno) == 0) {
-					System.out.println("Moon is applying to conjuct L4 " + planets_id.inverse().get(L4)
+					System.out.println("Moon is applying to conjuct L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0))
 							+ " within orb of " + (L4_orb / 60) + "°" + Math.abs(L4_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (MOON_minutes < POF_minutes || MOON_minutes > POF_minutes) {
+		if (MOON_minutes <= POF_minutes) {
 			if (Math.abs(POF_orb) <= 180) {
-				if (Math.abs(POF_houseno - MOON_houseno) == 2) {
+				if (Math.abs(POF_houseno - MOON_houseno) == 2 || Math.abs(POF_houseno - MOON_houseno) == 10) {
 					System.out.println("Moon is applying to sextile POF within orb of " + (POF_orb / 60) + "°"
 							+ Math.abs(POF_orb % 60) + "'");
-				} else if (Math.abs(POF_houseno - MOON_houseno) == 3) {
+				} else if (Math.abs(POF_houseno - MOON_houseno) == 3 || Math.abs(POF_houseno - MOON_houseno) == 9) {
 					System.out.println("Moon is applying to square POF within orb of " + (POF_orb / 60) + "°"
+							+ Math.abs(POF_orb % 60) + "'");
+				} else if (Math.abs(POF_houseno - MOON_houseno) == 4 || Math.abs(POF_houseno - MOON_houseno) == 8) {
+					System.out.println("Moon is applying to trine POF within orb of " + (POF_orb / 60) + "°"
 							+ Math.abs(POF_orb % 60) + "'");
 				} else if (Math.abs(POF_houseno - MOON_houseno) == 6) {
 					System.out.println("Moon is applying to oppose POF within orb of " + (POF_orb / 60) + "°"
@@ -2011,11 +2025,14 @@ public class GamblerDharma {
 				} else if (Math.abs(POF_houseno - MOON_houseno) == 0) {
 					System.out.println("Moon is applying to conjuct POF within orb of " + (POF_orb / 60) + "°"
 							+ Math.abs(POF_orb % 60) + "'");
+				} else if (Math.abs(POF_houseno - MOON_houseno) == 7 || Math.abs(POF_houseno - MOON_houseno) == 5) {
+					System.out.println("Moon is applying to inconjuct POF within orb of " + (POF_orb / 60) + "°"
+							+ Math.abs(POF_orb % 60) + "'");
 				}
 			}
 		}
 
-		if (L1_minutes < POF_minutes || L1_minutes > POF_minutes) {
+		if (L1_minutes <= POF_minutes) {
 			if (Math.abs(L1_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L1_houseno) == 6) {
 					System.out
@@ -2029,7 +2046,7 @@ public class GamblerDharma {
 			}
 		}
 
-		if (L7_minutes < POF_minutes || L7_minutes > POF_minutes) {
+		if (L7_minutes <= POF_minutes) {
 			if (Math.abs(L7_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L7_houseno) == 6) {
 					System.out
@@ -2043,7 +2060,7 @@ public class GamblerDharma {
 			}
 		}
 
-		if (L10_minutes < POF_minutes || L10_minutes > POF_minutes) {
+		if (L10_minutes <= POF_minutes) {
 			if (Math.abs(L10_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L10_houseno) == 6) {
 					System.out.println(
@@ -2057,7 +2074,7 @@ public class GamblerDharma {
 			}
 		}
 
-		if (L4_minutes < POF_minutes || L4_minutes > POF_minutes) {
+		if (L4_minutes <= POF_minutes) {
 			if (Math.abs(L4_poforb) <= 180) {
 				if (Math.abs(POF_houseno - L4_houseno) == 6) {
 					System.out
@@ -2086,6 +2103,9 @@ public class GamblerDharma {
 
 		int ketu_houseno = Iterables.get(planets.get(9), 3);
 		int ketu_minutes = Iterables.get(planets.get(9), 2);
+		
+		int saturn_houseno = Iterables.get(planets.get(7), 3);
+		int saturn_minutes = Iterables.get(planets.get(7), 2);
 
 		int upaketu_houseno = Iterables.get(planets.get(13), 3);
 		int upaketu_minutes = Iterables.get(planets.get(13), 2);
@@ -2138,6 +2158,7 @@ public class GamblerDharma {
 		int L4_uraorb = L4_minutes - uranus_minutes;
 
 		int POF_ketorb = POF_minutes - ketu_minutes;
+		int POF_satorb = POF_minutes - saturn_minutes;
 		int POF_ukorb = POF_minutes - upaketu_minutes;
 		int POF_neporb = POF_minutes - neptune_minutes;
 		int POF_pluorb = POF_minutes - pluto_minutes;
@@ -2146,118 +2167,118 @@ public class GamblerDharma {
 		int POF_uraorb = POF_minutes - uranus_minutes;
 
 		if (Math.abs(L1_ketorb) <= 120 && ketu_houseno == L1_houseno) {
-			System.out.println("L1 " + planets_id.inverse().get(L1) + " conjuct ketu within orb of " + (L1_ketorb / 60)
+			System.out.println("L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0)) + " conjuct ketu within orb of " + (L1_ketorb / 60)
 					+ "°" + Math.abs(L1_ketorb % 60) + "'");
 		}
 		if (Math.abs(L1_ukorb) <= 120 && upaketu_houseno == L1_houseno) {
-			System.out.println("L1 " + planets_id.inverse().get(L1) + " conjuct upaketu within orb of "
+			System.out.println("L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0)) + " conjuct upaketu within orb of "
 					+ (L1_ukorb / 60) + "°" + Math.abs(L1_ukorb % 60) + "'");
 		}
 		if (Math.abs(L1_neporb) <= 120 && neptune_houseno == L1_houseno) {
-			System.out.println("L1 " + planets_id.inverse().get(L1) + " conjuct neptune within orb of "
+			System.out.println("L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0)) + " conjuct neptune"+retro.get(Iterables.get(planets.get(11), 0))+" within orb of "
 					+ (L1_neporb / 60) + "°" + Math.abs(L1_neporb % 60) + "'");
 		}
 		if (Math.abs(L1_pluorb) <= 120 && pluto_houseno == L1_houseno) {
-			System.out.println("L1 " + planets_id.inverse().get(L1) + " conjuct pluto within orb of " + (L1_pluorb / 60)
+			System.out.println("L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0)) + " conjuct pluto"+retro.get(Iterables.get(planets.get(12), 0))+" within orb of " + (L1_pluorb / 60)
 					+ "°" + Math.abs(L1_pluorb % 60) + "'");
 		}
 		if (Math.abs(L1_sunorb) <= 120 && sunny_houseno == L1_houseno && L1 != 1) {
-			System.out.println("L1 " + planets_id.inverse().get(L1) + " is combusted by sun within orb of "
+			System.out.println("L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0)) + " is combusted by sun within orb of "
 					+ (L1_sunorb / 60) + "°" + Math.abs(L1_sunorb % 60) + "'");
 		}
 		if (Math.abs(L1_rahuorb) <= 120 && rahu_houseno == L1_houseno) {
-			System.out.println("L1 " + planets_id.inverse().get(L1) + " conjuct rahu within orb of " + (L1_rahuorb / 60)
+			System.out.println("L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0)) + " conjuct rahu within orb of " + (L1_rahuorb / 60)
 					+ "°" + Math.abs(L1_rahuorb % 60) + "'");
 		}
 		if (Math.abs(L1_uraorb) <= 120 && uranus_houseno == L1_houseno) {
-			System.out.println("L1 " + planets_id.inverse().get(L1) + " conjuct uranus within orb of "
+			System.out.println("L1 " + planets_id.inverse().get(L1)+retro.get(Iterables.get(planets.get(L1), 0)) + " conjuct uranus"+retro.get(Iterables.get(planets.get(10), 0))+" within orb of "
 					+ (L1_uraorb / 60) + "°" + Math.abs(L1_uraorb % 60) + "'");
 		}
 
 		if (Math.abs(L7_ketorb) <= 120 && ketu_houseno == L7_houseno) {
-			System.out.println("L7 " + planets_id.inverse().get(L7) + " conjuct ketu within orb of " + (L7_ketorb / 60)
+			System.out.println("L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0)) + " conjuct ketu within orb of " + (L7_ketorb / 60)
 					+ "°" + Math.abs(L7_ketorb % 60) + "'");
 		}
 		if (Math.abs(L7_ukorb) <= 120 && upaketu_houseno == L7_houseno) {
-			System.out.println("L7 " + planets_id.inverse().get(L7) + " conjuct upaketu within orb of "
+			System.out.println("L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0)) + " conjuct upaketu within orb of "
 					+ (L7_ukorb / 60) + "°" + Math.abs(L7_ukorb % 60) + "'");
 		}
 		if (Math.abs(L7_neporb) <= 120 && neptune_houseno == L7_houseno) {
-			System.out.println("L7 " + planets_id.inverse().get(L7) + " conjuct neptune within orb of "
+			System.out.println("L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0)) + " conjuct neptune"+retro.get(Iterables.get(planets.get(11), 0))+" within orb of "
 					+ (L7_neporb / 60) + "°" + Math.abs(L7_neporb % 60) + "'");
 		}
 		if (Math.abs(L7_pluorb) <= 120 && pluto_houseno == L7_houseno) {
-			System.out.println("L7 " + planets_id.inverse().get(L7) + " conjuct pluto within orb of " + (L7_pluorb / 60)
+			System.out.println("L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0)) + " conjuct pluto"+retro.get(Iterables.get(planets.get(12), 0))+" within orb of " + (L7_pluorb / 60)
 					+ "°" + Math.abs(L7_pluorb % 60) + "'");
 		}
 		if (Math.abs(L7_sunorb) <= 120 && sunny_houseno == L7_houseno && L7 != 1) {
-			System.out.println("L7 " + planets_id.inverse().get(L7) + " is combusted by sun within orb of "
+			System.out.println("L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0)) + " is combusted by sun within orb of "
 					+ (L7_sunorb / 60) + "°" + Math.abs(L7_sunorb % 60) + "'");
 		}
 		if (Math.abs(L7_rahuorb) <= 120 && rahu_houseno == L7_houseno) {
-			System.out.println("L7 " + planets_id.inverse().get(L7) + " conjuct rahu within orb of " + (L7_rahuorb / 60)
+			System.out.println("L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0)) + " conjuct rahu within orb of " + (L7_rahuorb / 60)
 					+ "°" + Math.abs(L7_rahuorb % 60) + "'");
 		}
 		if (Math.abs(L7_uraorb) <= 120 && uranus_houseno == L7_houseno) {
-			System.out.println("L7 " + planets_id.inverse().get(L7) + " conjuct uranus within orb of "
+			System.out.println("L7 " + planets_id.inverse().get(L7)+retro.get(Iterables.get(planets.get(L7), 0)) + " conjuct uranus"+retro.get(Iterables.get(planets.get(10), 0))+" within orb of "
 					+ (L7_uraorb / 60) + "°" + Math.abs(L7_uraorb % 60) + "'");
 		}
 
 		if (Math.abs(L10_ketorb) <= 120 && ketu_houseno == L10_houseno) {
-			System.out.println("L10 " + planets_id.inverse().get(L10) + " conjuct ketu within orb of "
+			System.out.println("L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0)) + " conjuct ketu within orb of "
 					+ (L10_ketorb / 60) + "°" + Math.abs(L10_ketorb % 60) + "'");
 		}
 		if (Math.abs(L10_ukorb) <= 120 && upaketu_houseno == L10_houseno) {
-			System.out.println("L10 " + planets_id.inverse().get(L10) + " conjuct upaketu within orb of "
+			System.out.println("L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0)) + " conjuct upaketu within orb of "
 					+ (L10_ukorb / 60) + "°" + Math.abs(L10_ukorb % 60) + "'");
 		}
 		if (Math.abs(L10_neporb) <= 120 && neptune_houseno == L10_houseno) {
-			System.out.println("L10 " + planets_id.inverse().get(L10) + " conjuct neptune within orb of "
+			System.out.println("L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0)) + " conjuct neptune"+retro.get(Iterables.get(planets.get(11), 0))+" within orb of "
 					+ (L10_neporb / 60) + "°" + Math.abs(L10_neporb % 60) + "'");
 		}
 		if (Math.abs(L10_pluorb) <= 120 && pluto_houseno == L10_houseno) {
-			System.out.println("L10 " + planets_id.inverse().get(L10) + " conjuct pluto within orb of "
+			System.out.println("L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0)) + " conjuct pluto"+retro.get(Iterables.get(planets.get(12), 0))+" within orb of "
 					+ (L10_pluorb / 60) + "°" + Math.abs(L10_pluorb % 60) + "'");
 		}
 		if (Math.abs(L10_sunorb) <= 120 && sunny_houseno == L10_houseno && L10 != 1) {
-			System.out.println("L10 " + planets_id.inverse().get(L10) + " is combusted by sun within orb of "
+			System.out.println("L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0)) + " is combusted by sun within orb of "
 					+ (L10_sunorb / 60) + "°" + Math.abs(L10_sunorb % 60) + "'");
 		}
 		if (Math.abs(L10_rahuorb) <= 120 && rahu_houseno == L10_houseno) {
-			System.out.println("L10 " + planets_id.inverse().get(L10) + " conjuct rahu within orb of "
+			System.out.println("L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0)) + " conjuct rahu within orb of "
 					+ (L10_rahuorb / 60) + "°" + Math.abs(L10_rahuorb % 60) + "'");
 		}
 		if (Math.abs(L10_uraorb) <= 120 && uranus_houseno == L10_houseno) {
-			System.out.println("L10 " + planets_id.inverse().get(L10) + " conjuct uranus within orb of "
+			System.out.println("L10 " + planets_id.inverse().get(L10)+retro.get(Iterables.get(planets.get(L10), 0)) + " conjuct uranus"+retro.get(Iterables.get(planets.get(10), 0))+" within orb of "
 					+ (L10_uraorb / 60) + "°" + Math.abs(L10_uraorb % 60) + "'");
 		}
 
 		if (Math.abs(L4_ketorb) <= 120 && ketu_houseno == L4_houseno) {
-			System.out.println("L4 " + planets_id.inverse().get(L4) + " conjuct ketu within orb of " + (L4_ketorb / 60)
+			System.out.println("L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0)) + " conjuct ketu within orb of " + (L4_ketorb / 60)
 					+ "°" + Math.abs(L4_ketorb % 60) + "'");
 		}
 		if (Math.abs(L4_ukorb) <= 120 && upaketu_houseno == L4_houseno) {
-			System.out.println("L4 " + planets_id.inverse().get(L4) + " conjuct upaketu within orb of "
+			System.out.println("L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0)) + " conjuct upaketu within orb of "
 					+ (L4_ukorb / 60) + "°" + Math.abs(L4_ukorb % 60) + "'");
 		}
 		if (Math.abs(L4_neporb) <= 120 && neptune_houseno == L4_houseno) {
-			System.out.println("L4 " + planets_id.inverse().get(L4) + " conjuct neptune within orb of "
+			System.out.println("L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0)) + " conjuct neptune"+retro.get(Iterables.get(planets.get(11), 0))+" within orb of "
 					+ (L4_neporb / 60) + "°" + Math.abs(L4_neporb % 60) + "'");
 		}
 		if (Math.abs(L4_pluorb) <= 120 && pluto_houseno == L4_houseno) {
-			System.out.println("L4 " + planets_id.inverse().get(L4) + " conjuct pluto within orb of " + (L4_pluorb / 60)
+			System.out.println("L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0)) + " conjuct pluto"+retro.get(Iterables.get(planets.get(12), 0))+" within orb of " + (L4_pluorb / 60)
 					+ "°" + Math.abs(L4_pluorb % 60) + "'");
 		}
 		if (Math.abs(L4_sunorb) <= 120 && sunny_houseno == L4_houseno && L4 != 1) {
-			System.out.println("L4 " + planets_id.inverse().get(L4) + " is combusted by sun within orb of "
+			System.out.println("L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0)) + " is combusted by sun within orb of "
 					+ (L4_sunorb / 60) + "°" + Math.abs(L4_sunorb % 60) + "'");
 		}
 		if (Math.abs(L4_rahuorb) <= 120 && rahu_houseno == L4_houseno) {
-			System.out.println("L4 " + planets_id.inverse().get(L4) + " conjuct rahu within orb of " + (L4_rahuorb / 60)
+			System.out.println("L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0)) + " conjuct rahu within orb of " + (L4_rahuorb / 60)
 					+ "°" + Math.abs(L4_rahuorb % 60) + "'");
 		}
 		if (Math.abs(L4_uraorb) <= 120 && uranus_houseno == L4_houseno) {
-			System.out.println("L4 " + planets_id.inverse().get(L4) + " conjuct uranus within orb of "
+			System.out.println("L4 " + planets_id.inverse().get(L4)+retro.get(Iterables.get(planets.get(L4), 0)) + " conjuct uranus"+retro.get(Iterables.get(planets.get(10), 0))+" within orb of "
 					+ (L4_uraorb / 60) + "°" + Math.abs(L4_uraorb % 60) + "'");
 		}
 
@@ -2271,13 +2292,13 @@ public class GamblerDharma {
 		}
 		if (Math.abs(POF_neporb) <= 120 && neptune_houseno == POF_houseno) {
 			System.out.println(
-					"POF conjuct neptune within orb of " + (POF_neporb / 60) + "°" + Math.abs(POF_neporb % 60) + "'");
+					"POF conjuct neptune"+retro.get(Iterables.get(planets.get(11), 0))+" within orb of " + (POF_neporb / 60) + "°" + Math.abs(POF_neporb % 60) + "'");
 		}
 		if (Math.abs(POF_pluorb) <= 120 && pluto_houseno == POF_houseno) {
 			System.out.println(
-					"POF conjuct pluto within orb of " + (POF_pluorb / 60) + "°" + Math.abs(POF_pluorb % 60) + "'");
+					"POF conjuct pluto"+retro.get(Iterables.get(planets.get(12), 0))+" within orb of " + (POF_pluorb / 60) + "°" + Math.abs(POF_pluorb % 60) + "'");
 		}
-		if (Math.abs(POF_sunorb) <= 120 && sunny_houseno == POF_houseno) {
+		if (Math.abs(POF_sunorb) <= 300 && sunny_houseno == POF_houseno) {
 			System.out.println("POF is combusted by sun within orb of " + (POF_sunorb / 60) + "°"
 					+ Math.abs(POF_sunorb % 60) + "'");
 		}
@@ -2287,7 +2308,11 @@ public class GamblerDharma {
 		}
 		if (Math.abs(POF_uraorb) <= 120 && uranus_houseno == POF_houseno) {
 			System.out.println(
-					"POF conjuct uranus within orb of " + (POF_uraorb / 60) + "°" + Math.abs(POF_uraorb % 60) + "'");
+					"POF conjuct uranus"+retro.get(Iterables.get(planets.get(10), 0))+" within orb of " + (POF_uraorb / 60) + "°" + Math.abs(POF_uraorb % 60) + "'");
+		}
+		if (Math.abs(POF_satorb) <= 120 && saturn_houseno == POF_houseno) {
+			System.out.println(
+					"POF conjuct saturn"+retro.get(Iterables.get(planets.get(7), 0))+" within orb of " + (POF_satorb / 60) + "°" + Math.abs(POF_satorb % 60) + "'");
 		}
 		bar.setValue(90);
 		Thread.sleep(1000);
@@ -2373,6 +2398,14 @@ public class GamblerDharma {
 		}
 		if(L7 == 1 && L7_starlord == 8) {
 			System.out.println("L7 Sun in nakshatra of Rahu who owns Aquarius results into Star Lord Reversal");
+			flag = false;
+		}
+		if(L1 == 6 && L1_starlord == 9) {
+			System.out.println("L1 Venus in nakshatra of Ketu who owns Scorpio results into Star Lord Reversal");
+			flag = false;
+		}
+		if(L7 == 6 && L7_starlord == 9) {
+			System.out.println("L7 Venus in nakshatra of Ketu who owns Scorpio results into Star Lord Reversal");
 			flag = false;
 		}
 		if (flag) {

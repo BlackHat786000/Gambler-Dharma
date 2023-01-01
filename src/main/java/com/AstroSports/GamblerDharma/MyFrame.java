@@ -65,7 +65,7 @@ public class MyFrame extends JFrame {
 			System.out.println(e);
 		}
 
-		setTitle("AstroSports v8.0 - Gambler's Dharma + Frawley's");
+		setTitle("AstroSports v12.0 - Gambler's Dharma + Frawley's");
 
 		setSize(450, 500);
 		setLocation(100, 100);

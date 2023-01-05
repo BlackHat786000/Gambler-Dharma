@@ -225,7 +225,7 @@ public class GamblerDharma {
 					pst.setString(2, frame1.salias.getText());
 					pst.setString(3, frame1.sname.getText());
 					pst.executeUpdate();
-					System.out.println("\nTimezone for Stadium "+frame1.sname.getText()+"("+frame1.salias.getText()+") Updated............");
+					System.out.println("\nTimezone for Stadium "+frame1.sname.getText()+" ("+frame1.salias.getText()+") Updated............");
 					stadium = frame1.sname.getText();
 					con.close();
 				} catch (Exception e) {
@@ -1005,95 +1005,10 @@ public class GamblerDharma {
 			}
 		}
 
-		for (int i = 1; i <= 12; i++) {
-
-			if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals(""))
-							&& (Iterables.get(house_view.get(i), 2).equals(""))
-							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl)))) {
-				ASC_SUB = ASC_SUB + 4;
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals(""))
-							&& (Iterables.get(house_view.get(i), 2).equals(""))
-							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl)))) {
-				ASC_SUB = ASC_SUB - 4;
-			} else if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
-				if (Iterables.get(house_view.get(i), 2).contains(asc_csl)) {
-					ASC_SUB = ASC_SUB + 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl)) {
-					ASC_SUB = ASC_SUB + 2;
-				}
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
-				if (Iterables.get(house_view.get(i), 2).contains(asc_csl)) {
-					ASC_SUB = ASC_SUB - 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl)) {
-					ASC_SUB = ASC_SUB - 2;
-				}
-			} else {
-				int cnt = 4;
-				for (int j = 0; j <= 3; j++) {
-					String s = Iterables.get(house_view.get(i), j);
-
-					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(asc_csl))) {
-						ASC_SUB = ASC_SUB + cnt;
-					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12) && (s.contains(asc_csl))) {
-						ASC_SUB = ASC_SUB - cnt;
-					}
-					cnt = cnt - 1;
-				}
-			}
-
-		}
-
+		ASC_SUB = Muhurata.Calculate_Muhurata_ASC(house_view, asc_csl);
 		System.out.println("1st CSL : " + asc_csl + " = " + ASC_SUB);
 
-		for (int i = 1; i <= 12; i++) {
-
-			if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
-							&& (Iterables.get(house_view.get(i), 2) == ""
-									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl))))) {
-				DSC_SUB = DSC_SUB - 4;
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
-							&& (Iterables.get(house_view.get(i), 2) == ""
-									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl))))) {
-				DSC_SUB = DSC_SUB + 4;
-			} else if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
-				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl)) {
-					DSC_SUB = DSC_SUB - 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl)) {
-					DSC_SUB = DSC_SUB - 2;
-				}
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
-				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl)) {
-					DSC_SUB = DSC_SUB + 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl)) {
-					DSC_SUB = DSC_SUB + 2;
-				}
-			} else {
-				int cnt = 4;
-				for (int j = 0; j <= 3; j++) {
-					String s = Iterables.get(house_view.get(i), j);
-
-					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(dsc_csl))) {
-						DSC_SUB = DSC_SUB - cnt;
-					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12) && (s.contains(dsc_csl))) {
-						DSC_SUB = DSC_SUB + cnt;
-					}
-					cnt = cnt - 1;
-				}
-			}
-
-		}
+		DSC_SUB = Muhurata.Calculate_Muhurata_DSC(house_view, dsc_csl);
 		System.out.println("7th CSL : " + dsc_csl + " = " + DSC_SUB + "\n");
 
 		if (ASC_SUB == DSC_SUB) {
@@ -1148,95 +1063,8 @@ public class GamblerDharma {
 //-------------------------------------------------------------------------------------------------------------------
 // Calculations of 1st & 7th CSL Star Lord
 
-		for (int i = 1; i <= 12; i++) {
-
-			if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals(""))
-							&& (Iterables.get(house_view.get(i), 2).equals(""))
-							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl_stars)))) {
-				ASC_SUB_STAR = ASC_SUB_STAR + 4;
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals(""))
-							&& (Iterables.get(house_view.get(i), 2).equals(""))
-							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl_stars)))) {
-				ASC_SUB_STAR = ASC_SUB_STAR - 4;
-			} else if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
-				if (Iterables.get(house_view.get(i), 2).contains(asc_csl_stars)) {
-					ASC_SUB_STAR = ASC_SUB_STAR + 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl_stars)) {
-					ASC_SUB_STAR = ASC_SUB_STAR + 2;
-				}
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
-				if (Iterables.get(house_view.get(i), 2).contains(asc_csl_stars)) {
-					ASC_SUB_STAR = ASC_SUB_STAR - 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl_stars)) {
-					ASC_SUB_STAR = ASC_SUB_STAR - 2;
-				}
-			} else {
-				int cnt = 4;
-				for (int j = 0; j <= 3; j++) {
-					String s = Iterables.get(house_view.get(i), j);
-
-					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(asc_csl_stars))) {
-						ASC_SUB_STAR = ASC_SUB_STAR + cnt;
-					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-							&& (s.contains(asc_csl_stars))) {
-						ASC_SUB_STAR = ASC_SUB_STAR - cnt;
-					}
-					cnt = cnt - 1;
-				}
-			}
-
-		}
-
-		for (int i = 1; i <= 12; i++) {
-
-			if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
-							&& (Iterables.get(house_view.get(i), 2) == ""
-									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_stars))))) {
-				DSC_SUB_STAR = DSC_SUB_STAR - 4;
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
-							&& (Iterables.get(house_view.get(i), 2) == ""
-									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_stars))))) {
-				DSC_SUB_STAR = DSC_SUB_STAR + 4;
-			} else if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
-				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl_stars)) {
-					DSC_SUB_STAR = DSC_SUB_STAR - 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl_stars)) {
-					DSC_SUB_STAR = DSC_SUB_STAR - 2;
-				}
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
-				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl_stars)) {
-					DSC_SUB_STAR = DSC_SUB_STAR + 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl_stars)) {
-					DSC_SUB_STAR = DSC_SUB_STAR + 2;
-				}
-			} else {
-				int cnt = 4;
-				for (int j = 0; j <= 3; j++) {
-					String s = Iterables.get(house_view.get(i), j);
-
-					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(dsc_csl_stars))) {
-						DSC_SUB_STAR = DSC_SUB_STAR - cnt;
-					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-							&& (s.contains(dsc_csl_stars))) {
-						DSC_SUB_STAR = DSC_SUB_STAR + cnt;
-					}
-					cnt = cnt - 1;
-				}
-			}
-
-		}
+		ASC_SUB_STAR = Muhurata.Calculate_Muhurata_ASC(house_view, asc_csl_stars);
+		DSC_SUB_STAR = Muhurata.Calculate_Muhurata_DSC(house_view, dsc_csl_stars);
 
 		if (ASC_SUB_STAR == DSC_SUB_STAR) {
 			star_status = "(2) Star Level : Neutral";
@@ -1259,52 +1087,7 @@ public class GamblerDharma {
 //-------------------------------------------------------------------------------------------------------------------
 // Calculations of 1st & 7th CSL Sub Lord
 
-		for (int i = 1; i <= 12; i++) {
-
-			if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals(""))
-							&& (Iterables.get(house_view.get(i), 2).equals(""))
-							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl_subs)))) {
-				ASC_SUB_SUB = ASC_SUB_SUB + 4;
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals(""))
-							&& (Iterables.get(house_view.get(i), 2).equals(""))
-							&& (Iterables.get(house_view.get(i), 3).contains(asc_csl_subs)))) {
-				ASC_SUB_SUB = ASC_SUB_SUB - 4;
-			} else if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
-				if (Iterables.get(house_view.get(i), 2).contains(asc_csl_subs)) {
-					ASC_SUB_SUB = ASC_SUB_SUB + 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl_subs)) {
-					ASC_SUB_SUB = ASC_SUB_SUB + 2;
-				}
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0).equals(""))
-							&& (Iterables.get(house_view.get(i), 1).equals("")))) {
-				if (Iterables.get(house_view.get(i), 2).contains(asc_csl_subs)) {
-					ASC_SUB_SUB = ASC_SUB_SUB - 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(asc_csl_subs)) {
-					ASC_SUB_SUB = ASC_SUB_SUB - 2;
-				}
-			} else {
-				int cnt = 4;
-				for (int j = 0; j <= 3; j++) {
-					String s = Iterables.get(house_view.get(i), j);
-
-					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(asc_csl_subs))) {
-						ASC_SUB_SUB = ASC_SUB_SUB + cnt;
-					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-							&& (s.contains(asc_csl_subs))) {
-						ASC_SUB_SUB = ASC_SUB_SUB - cnt;
-					}
-					cnt = cnt - 1;
-				}
-			}
-
-		}
+		ASC_SUB_SUB = Muhurata.Calculate_Muhurata_ASC(house_view, asc_csl_subs);
 
 		System.out.println("1st CSL : " + asc_csl + retro.get(Iterables.get(planets.get(planets_id.get(asc_csl)), 0))
 				+ retro.get(Iterables.get(planets.get(planets_id.get(asc_csl)), 6)) + " = " + ASC_SUB);
@@ -1313,48 +1096,7 @@ public class GamblerDharma {
 		System.out.println(asc_csl + " Sub Lord : " + asc_csl_subs
 				+ retro.get(Iterables.get(planets.get(planets_id.get(asc_csl_subs)), 0)) + " = " + ASC_SUB_SUB);
 
-		for (int i = 1; i <= 12; i++) {
-
-			if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
-							&& (Iterables.get(house_view.get(i), 2) == ""
-									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_subs))))) {
-				DSC_SUB_SUB = DSC_SUB_SUB - 4;
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == "")
-							&& (Iterables.get(house_view.get(i), 2) == ""
-									&& (Iterables.get(house_view.get(i), 3).contains(dsc_csl_subs))))) {
-				DSC_SUB_SUB = DSC_SUB_SUB + 4;
-			} else if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
-				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl_subs)) {
-					DSC_SUB_SUB = DSC_SUB_SUB - 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl_subs)) {
-					DSC_SUB_SUB = DSC_SUB_SUB - 2;
-				}
-			} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-					&& ((Iterables.get(house_view.get(i), 0) == "") && (Iterables.get(house_view.get(i), 1) == ""))) {
-				if (Iterables.get(house_view.get(i), 2).contains(dsc_csl_subs)) {
-					DSC_SUB_SUB = DSC_SUB_SUB + 4;
-				} else if (Iterables.get(house_view.get(i), 3).contains(dsc_csl_subs)) {
-					DSC_SUB_SUB = DSC_SUB_SUB + 2;
-				}
-			} else {
-				int cnt = 4;
-				for (int j = 0; j <= 3; j++) {
-					String s = Iterables.get(house_view.get(i), j);
-
-					if ((i == 1 || i == 2 || i == 3 || i == 6 || i == 10 || i == 11) && (s.contains(dsc_csl_subs))) {
-						DSC_SUB_SUB = DSC_SUB_SUB - cnt;
-					} else if ((i == 7 || i == 8 || i == 9 || i == 4 || i == 5 || i == 12)
-							&& (s.contains(dsc_csl_subs))) {
-						DSC_SUB_SUB = DSC_SUB_SUB + cnt;
-					}
-					cnt = cnt - 1;
-				}
-			}
-
-		}
+		DSC_SUB_SUB = Muhurata.Calculate_Muhurata_DSC(house_view, dsc_csl_subs);
 
 		if (ASC_SUB_SUB == DSC_SUB_SUB) {
 			sub_status = "(3) Sub Level : Neutral";
@@ -1387,12 +1129,24 @@ public class GamblerDharma {
 
 		System.out.println("\nASC : " + ASC + "  ,  DSC : " + DSC + "\n");
 		if (ASC == DSC) {
-			System.out.println("************ BALANCED ************");
+			System.out.println("OVERALL : BALANCED");
 		} else if (ASC > DSC) {
-			System.out.println("************ ASC by " + (ASC - DSC) + " ************");
+			System.out.println("OVERALL : ASC by " + (ASC - DSC));
 		} else {
-			System.out.println("************ DSC by " + (DSC - ASC) + " ************");
+			System.out.println("OVERALL : DSC by " + (DSC - ASC));
 		}
+		
+		System.out.println("\n\nPlanets Signification Value");
+		System.out.println("===========================");
+		System.out.println("Sun =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Sun"));
+		System.out.println("Moon =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Moon"));
+		System.out.println("Mars =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Mars"));
+		System.out.println("Mercury =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Mercury"));
+		System.out.println("Venus =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Venus"));
+		System.out.println("Jupiter =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Jupiter"));
+		System.out.println("Saturn =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Saturn"));
+		System.out.println("Rahu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Rahu"));
+		System.out.println("Ketu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Ketu"));
 
 		bar.setValue(40);
 		Thread.sleep(1000);
@@ -2423,22 +2177,12 @@ public class GamblerDharma {
 		
 		System.out.println(
 				"\n\n\n\n------------------------------------------------------------------------------------------------------------------------------------------");
-		System.out.println("												THE END");
+		System.out.println("													GAMBLER'S DHARMA - THE END");
 		System.out.println(
 				"------------------------------------------------------------------------------------------------------------------------------------------"
 						+ "");
 		
-		System.out.println("Vedic Extras : Planets Signification Value");
-		System.out.println("------------------------------------------");
-		System.out.println("Sun =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Sun"));
-		System.out.println("Moon =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Moon"));
-		System.out.println("Mars =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Mars"));
-		System.out.println("Mercury =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Mercury"));
-		System.out.println("Venus =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Venus"));
-		System.out.println("Jupiter =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Jupiter"));
-		System.out.println("Saturn =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Saturn"));
-		System.out.println("Rahu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Rahu"));
-		System.out.println("Ketu =>  " + Muhurata.Calculate_Muhurata_ASC(house_view, "Ketu"));
+//----------------------------------------------------------------------------------------------------------
 		
 		// Logic to form D1 Whole Sign (Western)
 		HashBiMap<Integer, Integer> whole_sign_western = HashBiMap.create();
@@ -2470,10 +2214,9 @@ public class GamblerDharma {
 		}
 		
 		bar.setValue(95);
-		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
 		
-		System.out.println("Frawley Testimonies (Tropical)");
-		System.out.println("----------------------------->");
+		System.out.println("\nFRAWLEY'S TESTIMONIES (TROPICAL)");
+		System.out.println("================================");
 		
 		// setting multiMaps
 		GamblerDharma.setMultiMaps(planets_western, cusps_western, planets_id, retro, aspects, D1_Lords_Western, signs_id, lords, whole_sign_western);
@@ -2671,6 +2414,8 @@ public class GamblerDharma {
 		GamblerDharma.calculateCusps(4, 2, 10, 150);
 		
 		System.out.println("\n------------------------------------------------------------------------------------------------------------------------------------------");
+		System.out.println("															  THE END");
+		System.out.println("------------------------------------------------------------------------------------------------------------------------------------------");
 		
 		bar.setValue(100);
 		Thread.sleep(1000);

@@ -1428,6 +1428,7 @@ public class GamblerDharma {
 			int antares_orb = 960 - cusp_minutes;
 			int purva_orb = 1050 - cusp_minutes;
 			int krittika_orb = 360 - cusp_minutes;
+			int abhijit_orb = 1290 - cusp_minutes;
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 5 && Math.abs(regulus_orb) <= 60)) {
 				System.out.println(
@@ -1482,6 +1483,15 @@ public class GamblerDharma {
 				System.out.println(
 						"******************************************************************************************************************************************\n");
 			}
+			
+			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 9 && Math.abs(abhijit_orb) <= 60)) {
+				System.out.println(
+						"\n******************************************************************************************************************************************");
+				System.out.println(i + " cusp is on The Abhijit (21° 30' Saggitarius) within orb of " + (abhijit_orb / 60)
+						+ "°" + Math.abs(abhijit_orb % 60) + "'");
+				System.out.println(
+						"******************************************************************************************************************************************\n");
+			}
 
 			if ((i == 1 || i == 7 || i == 10 || i == 4) && (cusp_sign == 2 && Math.abs(algol_orb) <= 60)) {
 				System.out.println(i + " cusp is on The Algol (2° Taurus) within orb of " + (algol_orb / 60) + "°"
@@ -1526,24 +1536,28 @@ public class GamblerDharma {
 		int l1_zuben = 1260 - l1_minutes;
 		int l1_bettelguese = 300 - l1_minutes;
 		int l1_spica = 1795 - l1_minutes;
+		int l1_abhijit = 1290 - l1_minutes;
 
 		int l7_regulus = 360 - l7_minutes;
 		int l7_pollux = 1770 - l7_minutes;
 		int l7_zuben = 1260 - l7_minutes;
 		int l7_bettelguese = 300 - l7_minutes;
 		int l7_spica = 1795 - l7_minutes;
+		int l7_abhijit = 1290 - l7_minutes;
 
 		int l10_regulus = 360 - l10_minutes;
 		int l10_pollux = 1770 - l10_minutes;
 		int l10_zuben = 1260 - l10_minutes;
 		int l10_bettelguese = 300 - l10_minutes;
 		int l10_spica = 1795 - l10_minutes;
+		int l10_abhijit = 1290 - l10_minutes;
 
 		int l4_regulus = 360 - l4_minutes;
 		int l4_pollux = 1770 - l4_minutes;
 		int l4_zuben = 1260 - l4_minutes;
 		int l4_bettelguese = 300 - l4_minutes;
 		int l4_spica = 1795 - l4_minutes;
+		int l4_abhijit = 1290 - l4_minutes;
 
 		System.out.println("\n\nLord's Conjuction with Nakshatra Taras : ");
 		System.out.println("========================================\n");
@@ -1630,6 +1644,23 @@ public class GamblerDharma {
 		if (l4_sign == 6 && Math.abs(l4_spica) <= 60) {
 			System.out.println("L4 " + planets_id.inverse().get(l4) + " conjuct spica within orb of " + (l4_spica / 60)
 					+ "°" + Math.abs(l4_spica % 60) + "'");
+		}
+		
+		if (l1_sign == 9 && Math.abs(l1_abhijit) <= 60) {
+			System.out.println("L1 " + planets_id.inverse().get(l1) + " conjuct abhijit within orb of " + (l1_abhijit / 60)
+					+ "°" + Math.abs(l1_abhijit % 60) + "'");
+		}
+		if (l7_sign == 9 && Math.abs(l7_abhijit) <= 60) {
+			System.out.println("L7 " + planets_id.inverse().get(l7) + " conjuct abhijit within orb of " + (l7_abhijit / 60)
+					+ "°" + Math.abs(l7_abhijit % 60) + "'");
+		}
+		if (l10_sign == 9 && Math.abs(l10_abhijit) <= 60) {
+			System.out.println("L10 " + planets_id.inverse().get(l10) + " conjuct abhijit within orb of "
+					+ (l10_abhijit / 60) + "°" + Math.abs(l10_abhijit % 60) + "'");
+		}
+		if (l4_sign == 9 && Math.abs(l4_abhijit) <= 60) {
+			System.out.println("L4 " + planets_id.inverse().get(l4) + " conjuct abhijit within orb of " + (l4_abhijit / 60)
+					+ "°" + Math.abs(l4_abhijit % 60) + "'");
 		}
 
 		bar.setValue(70);
